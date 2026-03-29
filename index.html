@@ -271,8 +271,16 @@ nav {
 }
 .about-fig {
   position:absolute;right:20px;top:50%;transform:rotate(-90deg) translateX(50%);
-  font-size:9px;letter-spacing:.25em;color:rgba(255,255,255,.15);text-transform:uppercase;
+  font-size:9px;letter-spacing:.3em;color:rgba(255,255,255,.2);text-transform:uppercase;
+  font-weight:500;
 }
+/* Grid coordinate marks */
+.about-l .coord {
+  position:absolute;font-size:8px;letter-spacing:.15em;color:rgba(255,255,255,.1);
+  text-transform:uppercase;font-weight:400;
+}
+.about-l .coord-bl { bottom:20px;left:24px; }
+.about-l .coord-tr { top:20px;right:24px; }
 .about-r {
   padding:clamp(56px,8vw,120px) clamp(32px,5vw,80px);
   display:flex;flex-direction:column;justify-content:center;
@@ -283,6 +291,7 @@ nav {
   font-size:clamp(28px,3vw,44px);line-height:1.08;letter-spacing:-.025em;
   margin-bottom:8px;color:var(--black);
 }
+.about-r h2 em { font-style:italic;font-weight:300; }
 .about-r .rule { width:48px;height:1px;background:var(--black);margin:28px 0;transform-origin:left; }
 .about-r h2 + .rule + p:first-of-type { color:#444; }
 .about-r p {
@@ -715,10 +724,12 @@ footer {
       <div class="dia"></div>
     </div>
     <span class="about-fig">FIG. A</span>
+    <span class="coord coord-bl">25.2048&deg; N</span>
+    <span class="coord coord-tr">55.2708&deg; E</span>
   </div>
   <div class="about-r">
     <p class="t-label">About</p>
-    <h2>Built on Trust,<br>Driven by Expertise</h2>
+    <h2>Built on Trust,<br>Driven by <em>Expertise</em></h2>
     <div class="rule"></div>
     <p>Elizabeth Commercial Brokers FZCO is a DMCC-licensed financial brokerage operating from Dubai. Decades of collective experience across global equity, fixed income, commodity, and advisory markets.</p>
     <p>Our philosophy is rooted in transparency, rigorous governance, and a genuine commitment to aligning our interests with yours. No conflicts — only lasting partnerships built on trust.</p>
