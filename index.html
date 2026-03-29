@@ -121,7 +121,11 @@ nav {
 .logo { font-family:var(--sans);font-size:13px;font-weight:700;letter-spacing:.35em;color:var(--white);text-transform:uppercase; }
 .logo span { font-weight:300;color:var(--gray-400);letter-spacing:.15em;margin-left:10px;font-size:11px; }
 .nav-r { display:flex;align-items:center;gap:36px; }
-.nav-r a { font-size:12px;font-weight:400;letter-spacing:.1em;color:var(--gray-300);text-transform:uppercase;transition:color .3s; }
+.nav-r a { font-size:12px;font-weight:400;letter-spacing:.1em;color:var(--gray-300);text-transform:uppercase;transition:color .3s,opacity .3s;position:relative; }
+.nav-r a.active::before {
+  content:'';position:absolute;left:-12px;top:50%;transform:translateY(-50%);
+  width:5px;height:5px;background:var(--white);border-radius:50%;
+}
 .nav-r a:hover { color:var(--white); }
 .nav-r:hover a { opacity:.35;transition:opacity .3s,color .3s; }
 .nav-r:hover a:hover { opacity:1; }
@@ -229,6 +233,7 @@ nav {
   padding:15px 0;overflow:hidden;white-space:nowrap;
 }
 .ticker-track { display:inline-flex;animation:tick 50s linear infinite; }
+.ticker:hover .ticker-track { animation-play-state:paused; }
 .ticker-item {
   font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--gray-600);
   padding:0 44px;font-weight:400;
@@ -323,7 +328,8 @@ nav {
 }
 .srv:hover .srv-inner { background:var(--mid-dark); }
 .srv-num { font-size:13px;color:var(--gray-600);letter-spacing:.1em;margin-bottom:20px;font-weight:400; }
-.srv-ico { width:44px;height:44px;margin-bottom:22px;color:var(--white);opacity:.7; }
+.srv-ico { width:44px;height:44px;margin-bottom:22px;color:var(--white);opacity:.7;transition:opacity .4s,transform .4s; }
+.srv:hover .srv-ico { opacity:1;transform:translateY(-3px); }
 .srv-ico svg { width:100%;height:100%; }
 .srv h3 { font-family:var(--serif);font-size:22px;font-weight:300;color:var(--white);margin-bottom:14px;letter-spacing:-.01em; }
 .srv p { font-size:14px;line-height:1.7;color:var(--gray-400);margin-bottom:22px;font-weight:300; }
@@ -460,7 +466,8 @@ nav {
 .cl:hover { transform:translateY(-4px); }
 .cl-grid:hover .cl { opacity:.45;transition:opacity .4s,transform .4s; }
 .cl-grid:hover .cl:hover { opacity:1; }
-.cl-ico { width:32px;height:32px;margin-bottom:16px;color:var(--white);opacity:.4; }
+.cl-ico { width:32px;height:32px;margin-bottom:16px;color:var(--white);opacity:.4;transition:opacity .4s,transform .4s; }
+.cl:hover .cl-ico { opacity:1;transform:translateY(-2px); }
 .cl-ico svg { width:100%;height:100%; }
 .cl h3 { font-family:var(--serif);font-size:20px;font-weight:300;color:var(--white);margin-bottom:10px;line-height:1.3; }
 .cl p { font-size:13px;line-height:1.65;color:var(--gray-400);font-weight:300; }
@@ -535,8 +542,14 @@ footer {
 .ft-col h4 { font-size:10px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--gray-300);margin-bottom:16px; }
 .ft-col ul { list-style:none; }
 .ft-col li { margin-bottom:12px; }
-.ft-col a { font-size:13px;color:var(--gray-400);transition:color .3s;font-weight:300; }
+.ft-col a { font-size:13px;color:var(--gray-400);transition:color .3s;font-weight:300;position:relative; }
+.ft-col a::after {
+  content:'';position:absolute;bottom:-2px;left:0;width:100%;height:1px;
+  background:var(--white);transform:scaleX(0);transform-origin:right;
+  transition:transform .35s cubic-bezier(.25,.46,.45,.94);
+}
 .ft-col a:hover { color:var(--white); }
+.ft-col a:hover::after { transform:scaleX(1);transform-origin:left; }
 .ft-div { height:1px;background:var(--gray-800);margin-bottom:20px; }
 .ft-clock { font-size:11px;color:var(--gray-600);font-variant-numeric:tabular-nums; }
 .ft-clock .blink { animation:blink 1s step-end infinite; }
@@ -892,7 +905,11 @@ window.addEventListener('scroll',()=>{
   lastSY=sy;
   // Active link
   let cur='';secs.forEach(s=>{if(sy>=s.offsetTop-200)cur=s.id});
-  nLinks.forEach(a=>{a.style.color=a.getAttribute('href')==='#'+cur?'var(--white)':''});
+  nLinks.forEach(a=>{
+    const isActive=a.getAttribute('href')==='#'+cur;
+    a.style.color=isActive?'var(--white)':'';
+    a.classList.toggle('active',isActive);
+  });
 });
 
 /* ── Clock ── */
