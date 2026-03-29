@@ -80,6 +80,8 @@ button, input, textarea { cursor: none; }
 }
 .btn:hover { color:var(--black);border-color:var(--white); }
 .btn:hover::before { transform:scaleX(1); }
+.btn svg { transition:transform .4s cubic-bezier(.23,1,.32,1); }
+.btn:hover svg { transform:translateX(4px); }
 /* dark variant */
 .btn-dark {
   color:var(--black);border-color:var(--black);
@@ -303,6 +305,9 @@ nav {
   transition:transform .4s cubic-bezier(.23,1,.32,1),color .3s;
 }
 .srv:hover .srv-arr { transform:translateX(8px);color:var(--white); }
+/* Tilt on hover via JS */
+.srv-inner { transition:background .4s,transform .3s ease; }
+.srv:hover .srv-inner { transform:perspective(800px) rotateX(1deg) rotateY(-1deg); }
 
 /* ═══════════════════════════════════════
    SHOWCASE — horizontal scroll
@@ -368,12 +373,13 @@ nav {
   padding:clamp(100px,14vw,220px) clamp(24px,6vw,100px);
   text-align:center;position:relative;overflow:hidden;
 }
-.stmt-rule { width:1px;height:52px;background:var(--black);margin:0 auto 36px;opacity:.12; }
+.stmt-rule { width:1px;height:52px;background:var(--black);margin:0 auto 36px;opacity:.1; }
 .stmt h2 {
   font-family:var(--serif);font-weight:200;
-  font-size:clamp(26px,3.4vw,52px);line-height:1.0;letter-spacing:-.03em;
-  max-width:740px;margin:0 auto 24px;color:var(--black);
+  font-size:clamp(26px,3.6vw,56px);line-height:.98;letter-spacing:-.035em;
+  max-width:780px;margin:0 auto 24px;color:var(--black);
 }
+.stmt h2 em { font-style:italic;font-weight:300; }
 .stmt p {
   font-size:16px;line-height:1.75;color:var(--gray-600);font-weight:300;
   max-width:540px;margin:0 auto 32px;
@@ -442,6 +448,11 @@ nav {
 }
 .field textarea { height:120px;resize:vertical; }
 .field input:focus,.field textarea:focus { outline:none;border-bottom-color:var(--black); }
+.field::after {
+  content:'';position:absolute;bottom:0;left:50%;width:0;height:1px;
+  background:var(--black);transition:width .4s cubic-bezier(.23,1,.32,1),left .4s cubic-bezier(.23,1,.32,1);
+}
+.field:focus-within::after { width:100%;left:0; }
 .field label {
   position:absolute;top:12px;left:0;
   font-size:14px;color:var(--gray-400);font-weight:300;
@@ -558,7 +569,7 @@ footer {
     <h1 id="hH">Your Financial Future,<br><em>Expertly</em> Managed</h1>
     <p class="hero-sub">Expert financial brokerage services from the heart of Dubai's DMCC Free Zone.</p>
     <div class="hero-cta">
-      <a href="#contact" class="btn" data-mag>Get Started</a>
+      <a href="#contact" class="btn" data-mag><span>Get Started</span><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
       <a href="#about" class="tlink" style="color:var(--gray-300)">Learn more</a>
     </div>
   </div>
@@ -703,7 +714,7 @@ footer {
   <span class="br-l" aria-hidden="true">\</span>
   <span class="br-r" aria-hidden="true">/</span>
   <div class="stmt-rule"></div>
-  <h2>Your Interests. Our Expertise.<br>No Conflicts.</h2>
+  <h2>Your Interests. Our <em>Expertise.</em><br>No Conflicts.</h2>
   <p>Elizabeth Commercial Brokers partners with those who value transparency, governance, and long-term thinking.</p>
   <div class="stmt-rule-b"></div>
 </section>
@@ -737,7 +748,7 @@ footer {
         </div>
         <div class="field"><input type="text" placeholder=" "><label>Subject</label></div>
         <div class="field"><textarea placeholder=" "></textarea><label>Message</label></div>
-        <button type="submit" class="btn btn-dark" data-mag><span>Send Message</span></button>
+        <button type="submit" class="btn btn-dark" data-mag><span>Send Message</span><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></button>
       </form>
       <div class="c-map">
         <svg viewBox="0 0 800 160" preserveAspectRatio="none"><defs><pattern id="mg" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="#2A2A2A" stroke-width=".5"/></pattern></defs><rect width="100%" height="100%" fill="url(#mg)"/></svg>
