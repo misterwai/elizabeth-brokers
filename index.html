@@ -43,6 +43,9 @@ body {
 a { color: inherit; text-decoration: none; cursor: none; }
 button, input, textarea { cursor: none; }
 
+/* ── Page overlay ── */
+.overlay{position:fixed;inset:0;background:var(--black);z-index:10002;pointer-events:none;}
+
 /* ── Cursor ── */
 .cur { position:fixed;top:0;left:0;width:10px;height:10px;background:#fff;border-radius:50%;pointer-events:none;z-index:9999;mix-blend-mode:difference;transform:translate(-50%,-50%);transition:width .25s,height .25s; }
 .cur.h { width:56px;height:56px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.3); }
@@ -117,6 +120,8 @@ nav {
 .nav-r { display:flex;align-items:center;gap:36px; }
 .nav-r a { font-size:12px;font-weight:400;letter-spacing:.1em;color:var(--gray-300);text-transform:uppercase;transition:color .3s; }
 .nav-r a:hover { color:var(--white); }
+.nav-r:hover a { opacity:.35;transition:opacity .3s,color .3s; }
+.nav-r:hover a:hover { opacity:1; }
 .mob-btn { display:none;background:none;border:none;flex-direction:column;gap:5px;padding:8px; }
 .mob-btn span { width:22px;height:1px;background:var(--white); }
 
@@ -168,6 +173,24 @@ nav {
   width:100px;height:1px;background:rgba(255,255,255,.15);z-index:2;
   transform-origin:left;
 }
+/* V-line geometric overlay */
+.hero-vlines {
+  position:absolute;inset:0;z-index:1;pointer-events:none;overflow:hidden;
+}
+.hero-vlines::before,.hero-vlines::after {
+  content:'';position:absolute;top:0;width:1px;height:140%;
+  background:rgba(255,255,255,.04);transform-origin:top;
+}
+.hero-vlines::before { left:48%;transform:rotate(12deg); }
+.hero-vlines::after { left:52%;transform:rotate(-12deg); }
+/* Bottom metadata */
+.hero-meta {
+  position:absolute;bottom:28px;z-index:2;
+  font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--gray-600);
+  font-weight:400;
+}
+.hero-meta-l { left:clamp(24px,6vw,100px); }
+.hero-meta-r { right:clamp(24px,6vw,100px); }
 
 /* ── Hero geometry (left) ── */
 .hero-geo {
@@ -316,6 +339,9 @@ nav {
   opacity:0;transition:opacity .4s;pointer-events:none;
 }
 .srv:hover::after { opacity:1; }
+/* Sibling dimming on grid hover */
+.srv-grid:hover .srv { opacity:.5;transition:opacity .4s,transform .4s; }
+.srv-grid:hover .srv:hover { opacity:1; }
 
 /* ═══════════════════════════════════════
    SHOWCASE — horizontal scroll
@@ -507,6 +533,11 @@ footer {
 .ft-col a { font-size:13px;color:var(--gray-400);transition:color .3s;font-weight:300; }
 .ft-col a:hover { color:var(--white); }
 .ft-div { height:1px;background:var(--gray-800);margin-bottom:20px; }
+.ft-clock { font-size:11px;color:var(--gray-600);font-variant-numeric:tabular-nums; }
+.ft-clock .blink { animation:blink 1s step-end infinite; }
+@keyframes blink { 50%{opacity:0} }
+/* Section divider rule */
+.sec-rule { width:100%;height:1px;background:var(--gray-200);transform-origin:left;margin:0 auto; }
 .ft-bot { display:flex;justify-content:space-between;align-items:center; }
 .ft-bot span { font-size:11px;color:var(--gray-600); }
 
@@ -545,6 +576,7 @@ footer {
 </head>
 <body>
 
+<div class="overlay" id="ov"></div>
 <div class="cur" id="cur"></div>
 <div class="cur-d" id="curd"></div>
 <div class="prog" id="prog"></div>
@@ -564,6 +596,7 @@ footer {
 
 <!-- HERO -->
 <section class="hero" id="hero">
+  <div class="hero-vlines" aria-hidden="true"></div>
   <div class="hero-img" id="heroImg">
     <img src="https://images.pexels.com/photos/36355404/pexels-photo-36355404.jpeg?auto=compress&cs=tinysrgb&w=1400" alt="DMCC Uptown Tower, Dubai" loading="eager">
   </div>
@@ -583,6 +616,8 @@ footer {
     </div>
   </div>
   <div class="hero-line"></div>
+  <span class="hero-meta hero-meta-l">Elizabeth Commercial Brokers<br>DMCC Free Zone</span>
+  <span class="hero-meta hero-meta-r" id="heroTime"></span>
 </section>
 
 <!-- TICKER -->
@@ -690,6 +725,7 @@ footer {
   </section>
 </div>
 
+<div class="sec-rule" data-rule></div>
 <!-- WHY US -->
 <section class="why" id="why">
   <div class="why-head">
@@ -784,6 +820,7 @@ footer {
   <div class="ft-div"></div>
   <div class="ft-bot">
     <span>&copy; 2024 Elizabeth Commercial Brokers FZCO</span>
+    <span class="ft-clock" id="ftClock"></span>
     <span>DMCC Licensed &middot; Dubai, UAE</span>
   </div>
 </footer>
@@ -840,18 +877,48 @@ function dp(){ctx.clearRect(0,0,cv.width,cv.height);pts.forEach(p=>{p.x+=p.vx;p.
 document.getElementById('mobBtn').addEventListener('click',()=>document.getElementById('navR').classList.toggle('open'));
 document.querySelectorAll('.nav-r a').forEach(a=>a.addEventListener('click',()=>document.getElementById('navR').classList.remove('open')));
 
-/* ── Nav scroll ── */
+/* ── Nav scroll — hide/show ── */
 const nav=document.getElementById('nav'),secs=document.querySelectorAll('section[id]'),nLinks=document.querySelectorAll('.nav-r a');
+let lastSY=0;
+window.addEventListener('scroll',()=>{
+  const sy=window.scrollY;
+  if(sy>400&&sy>lastSY){gsap.to(nav,{y:'-100%',duration:.35,ease:'power2.in'})}
+  else{gsap.to(nav,{y:'0%',duration:.35,ease:'power2.out'})}
+  lastSY=sy;
+  // Active link
+  let cur='';secs.forEach(s=>{if(sy>=s.offsetTop-200)cur=s.id});
+  nLinks.forEach(a=>{a.style.color=a.getAttribute('href')==='#'+cur?'var(--white)':''});
+});
+
+/* ── Clock ── */
+function updateClock(){
+  const now=new Date();
+  const h=now.toLocaleString('en-US',{hour:'numeric',minute:'2-digit',hour12:true,timeZone:'Asia/Dubai'});
+  const parts=h.split(':');
+  const heroEl=document.getElementById('heroTime');
+  const ftEl=document.getElementById('ftClock');
+  const str=parts[0]+'<span class="blink">:</span>'+parts.slice(1).join(':');
+  if(heroEl)heroEl.innerHTML='Dubai '+str;
+  if(ftEl)ftEl.innerHTML='Dubai '+str;
+}
+updateClock();setInterval(updateClock,1000);
 
 /* ── GSAP ── */
 gsap.registerPlugin(ScrollTrigger);
 
-// Hero
-gsap.from('#hH',{y:60,opacity:0,duration:1,ease:'power3.out',delay:.3});
-gsap.from('.hero-over',{y:20,opacity:0,duration:.6,ease:'power2.out',delay:.1});
-gsap.from('.hero-sub',{y:30,opacity:0,duration:.7,ease:'power2.out',delay:.8});
-gsap.from('.hero-cta',{y:20,opacity:0,duration:.6,ease:'power2.out',delay:1.1});
-gsap.from('.hero-line',{scaleX:0,duration:.8,ease:'power2.out',delay:1.3});
+// Custom ease (from OTC)
+const EASE='cubic-bezier(0,0.5,0.25,1)';
+
+// Page overlay
+gsap.to('#ov',{opacity:0,duration:.55,ease:'power2.inOut',delay:.15,onComplete(){document.getElementById('ov').style.display='none'}});
+
+// Hero — staggered entrance after overlay
+gsap.from('#hH',{y:50,opacity:0,duration:1,ease:'power3.out',delay:.5});
+gsap.from('.hero-over',{y:16,opacity:0,duration:.6,ease:'power2.out',delay:.35});
+gsap.from('.hero-sub',{y:24,opacity:0,duration:.7,ease:'power2.out',delay:1});
+gsap.from('.hero-cta',{y:16,opacity:0,duration:.6,ease:'power2.out',delay:1.2});
+gsap.from('.hero-line',{scaleX:0,duration:.8,ease:'power2.out',delay:1.4});
+gsap.from('.hero-meta',{opacity:0,duration:.8,ease:'power2.out',delay:1.5});
 
 // Hero parallax
 gsap.to('#heroImg',{yPercent:-12,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});
@@ -911,6 +978,11 @@ gsap.from('.contact-r .c-block',{scrollTrigger:{trigger:'.contact-r',start:'top 
 
 // Pin pulse
 gsap.to('.c-pin-r',{scale:1.3,opacity:0,duration:1.5,ease:'power2.out',stagger:.15,repeat:-1,scrollTrigger:{trigger:'.c-map',start:'top 90%'}});
+
+// Section rule reveals
+document.querySelectorAll('[data-rule]').forEach(r=>{
+  gsap.from(r,{scaleX:0,duration:.8,ease:'power2.out',scrollTrigger:{trigger:r,start:'top 90%'}});
+});
 
 // Footer
 gsap.from('.ft-top > *',{scrollTrigger:{trigger:'footer',start:'top 88%'},y:16,opacity:0,duration:.45,ease:'power2.out',stagger:.08});
