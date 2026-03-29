@@ -559,7 +559,7 @@ nav {
    FOOTER
    ═══════════════════════════════════════ */
 footer {
-  background:var(--black);padding:64px clamp(24px,6vw,100px) 32px;
+  background:var(--black);padding:80px clamp(24px,6vw,100px) 36px;
 }
 .ft-top { display:grid;grid-template-columns:1.8fr 1fr 1fr 1fr;gap:36px;margin-bottom:40px; }
 .ft-logo { font-family:var(--sans);font-size:13px;font-weight:700;letter-spacing:.35em;color:var(--white);text-transform:uppercase;margin-bottom:6px; }
@@ -840,6 +840,7 @@ footer {
   </div>
 </section>
 
+<div class="sec-rule" data-rule></div>
 <!-- CONTACT -->
 <section class="contact" id="contact">
   <div class="contact-grid">
@@ -879,7 +880,7 @@ footer {
   </div>
   <div class="ft-div"></div>
   <div class="ft-bot">
-    <span>&copy; 2024 Elizabeth Commercial Brokers FZCO</span>
+    <span>&copy; <span id="ftYear"></span> Elizabeth Commercial Brokers FZCO</span>
     <span class="ft-clock" id="ftClock"></span>
     <span>DMCC Licensed &middot; Dubai, UAE</span>
   </div>
@@ -966,6 +967,7 @@ function updateClock(){
   if(ftEl)ftEl.innerHTML='Dubai '+str;
 }
 updateClock();setInterval(updateClock,1000);
+document.getElementById('ftYear').textContent=new Date().getFullYear();
 
 /* ── GSAP ── */
 gsap.registerPlugin(ScrollTrigger);
