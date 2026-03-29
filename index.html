@@ -1067,6 +1067,9 @@ gsap.from('.hero-meta',{opacity:0,duration:.8,ease:'power2.out',delay:1.5});
 // Hero parallax
 gsap.to('#heroImg',{yPercent:-12,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});
 
+// Fade scroll indicator on scroll
+gsap.to('.hero-scroll',{opacity:0,y:-10,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'15% top',scrub:true}});
+
 // Hero geo
 gsap.to('.hero-geo .o1',{rotation:360,duration:55,repeat:-1,ease:'none',transformOrigin:'center'});
 gsap.to('.hero-geo .o2',{rotation:-360,duration:70,repeat:-1,ease:'none',transformOrigin:'center'});
@@ -1098,6 +1101,12 @@ gsap.to('#gO2',{attr:{transform:'rotate(-360,90,90)'},duration:28,repeat:-1,ease
 document.querySelectorAll('.stat-n').forEach(el=>{
   const t=parseInt(el.dataset.to),sf=el.dataset.sf||'';
   ScrollTrigger.create({trigger:el,start:'top 85%',onEnter:()=>{gsap.to(el,{duration:1,ease:'power2.out',onUpdate(){el.textContent=Math.round(this.progress()*t)+sf}})},once:true});
+});
+
+// About stat counter
+document.querySelectorAll('.about-r [data-to]').forEach(el=>{
+  const t=parseInt(el.dataset.to);
+  ScrollTrigger.create({trigger:el,start:'top 85%',onEnter:()=>{gsap.to(el,{duration:.8,ease:'power2.out',onUpdate(){el.textContent=Math.round(this.progress()*t)}})},once:true});
 });
 
 // Why us pillars
