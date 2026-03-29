@@ -391,6 +391,8 @@ nav {
 }
 .sc-panel h3 { font-family:var(--serif);font-size:21px;font-weight:300;color:var(--white);margin-bottom:8px; }
 .sc-panel p { font-size:13px;line-height:1.65;color:var(--gray-400);font-weight:300; }
+.sc-panel .vis { transition:border-color .4s; }
+.sc-panel:hover .vis { border-color:rgba(255,255,255,.15); }
 
 /* ═══════════════════════════════════════
    WHY US — editorial pillars
@@ -400,7 +402,7 @@ nav {
   background:var(--light);
 }
 .why-head { max-width:620px;margin-bottom:64px; }
-.why-head .t-label { margin-bottom:16px; }
+.why-head .t-label { margin-bottom:20px; }
 .why-head h2 {
   font-family:var(--serif);font-weight:200;
   font-size:clamp(28px,3.2vw,48px);line-height:1.05;letter-spacing:-.025em;
@@ -412,8 +414,13 @@ nav {
 .pil-ico { width:36px;height:36px;margin-bottom:20px;color:var(--black);opacity:.5; }
 .pil-ico svg { width:100%;height:100%; }
 .pil-n { font-family:var(--serif);font-size:44px;font-weight:200;color:var(--black);opacity:.15;margin-bottom:16px;line-height:1; }
-.pil h3 { font-size:17px;font-weight:500;margin-bottom:12px;letter-spacing:.01em; }
-.pil p { font-size:14px;line-height:1.75;color:var(--gray-600);font-weight:300; }
+.pil h3 { font-size:17px;font-weight:500;margin-bottom:12px;letter-spacing:.01em;transition:color .3s; }
+.pil p { font-size:14px;line-height:1.75;color:var(--gray-600);font-weight:300;transition:color .3s; }
+.pil { transition:opacity .4s; }
+.pillars:hover .pil { opacity:.4; }
+.pillars:hover .pil:hover { opacity:1; }
+.pil:hover h3 { color:var(--black); }
+.pil:hover p { color:#444; }
 
 /* ═══════════════════════════════════════
    STATEMENT — centered moment
