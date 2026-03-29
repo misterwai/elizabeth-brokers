@@ -291,66 +291,73 @@ nav {
 }
 
 /* ═══════════════════════════════════════
-   SERVICES — tilt cards with conic border
+   SERVICES — editorial stacked rows
    ═══════════════════════════════════════ */
 .services {
   background:radial-gradient(ellipse at 25% 35%,rgba(30,30,30,1) 0%,rgba(13,13,13,1) 65%);
   padding:clamp(80px,11vw,160px) clamp(24px,6vw,100px);
   position:relative;overflow:hidden;
 }
-.services-head { margin-bottom:64px;max-width:560px; }
+.services-head {
+  display:flex;justify-content:space-between;align-items:flex-end;
+  margin-bottom:72px;max-width:1200px;
+}
 .services-head .t-label { color:var(--gray-400);margin-bottom:20px; }
 .services-head h2 {
   font-family:var(--serif);font-weight:200;
   font-size:clamp(28px,3vw,44px);line-height:1.08;letter-spacing:-.025em;
   color:var(--white);
 }
-.srv-grid {
-  display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:1100px;
+.services-head .srv-count {
+  font-size:12px;letter-spacing:.15em;text-transform:uppercase;color:var(--gray-600);
+  white-space:nowrap;padding-bottom:8px;
 }
-.srv-grid .srv:nth-child(even) { margin-top:36px; }
-
-/* Card with animated conic border */
-@property --a { syntax:'<angle>';initial-value:0deg;inherits:false; }
-.srv {
-  position:relative;padding:1px;border-radius:0;
-  background:var(--gray-800);
-  transition:background .6s;
+/* Stacked row list */
+.srv-list { max-width:1200px;position:relative; }
+/* Vertical connecting line on left */
+.srv-list::before {
+  content:'';position:absolute;left:28px;top:0;bottom:0;width:1px;
+  background:var(--gray-800);pointer-events:none;
 }
-.srv:hover {
-  background:conic-gradient(from var(--a),transparent 60%,rgba(255,255,255,.2) 80%,transparent 100%);
-  animation:spin-b 4s linear infinite;
+.srv-row {
+  display:grid;grid-template-columns:56px 1fr auto;gap:0 clamp(24px,3vw,48px);
+  align-items:start;
+  padding:clamp(28px,3vw,44px) 0;
+  border-top:1px solid var(--gray-800);
+  cursor:none;position:relative;
+  transition:opacity .4s;
 }
-@keyframes spin-b { to { --a:360deg; } }
-.srv-inner {
-  background:var(--dark);padding:44px 36px;height:100%;
-  transition:background .4s;
+.srv-row:last-child { border-bottom:1px solid var(--gray-800); }
+/* Number circle */
+.srv-n {
+  width:56px;height:56px;
+  border:1px solid var(--gray-800);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;color:var(--gray-400);font-weight:400;
+  position:relative;z-index:1;background:var(--black);
+  transition:border-color .4s,color .4s;
 }
-.srv:hover .srv-inner { background:var(--mid-dark); }
-.srv-num { font-size:13px;color:var(--gray-600);letter-spacing:.1em;margin-bottom:20px;font-weight:400; }
-.srv-ico { width:44px;height:44px;margin-bottom:22px;color:var(--white);opacity:.7;transition:opacity .4s,transform .4s; }
-.srv:hover .srv-ico { opacity:1;transform:translateY(-3px); }
-.srv-ico svg { width:100%;height:100%; }
-.srv h3 { font-family:var(--serif);font-size:22px;font-weight:300;color:var(--white);margin-bottom:14px;letter-spacing:-.01em; }
-.srv p { font-size:14px;line-height:1.7;color:var(--gray-400);margin-bottom:22px;font-weight:300;max-width:360px; }
-.srv-arr {
-  font-size:18px;color:var(--gray-400);display:inline-block;
-  transition:transform .4s cubic-bezier(.23,1,.32,1),color .3s;
+.srv-row:hover .srv-n { border-color:var(--white);color:var(--white); }
+.srv-body { padding-top:6px; }
+.srv-body h3 {
+  font-family:var(--serif);font-size:clamp(22px,2vw,32px);font-weight:300;
+  color:var(--gray-300);margin-bottom:10px;letter-spacing:-.01em;
+  transition:color .4s;
 }
-.srv:hover .srv-arr { transform:translateX(8px);color:var(--white); }
-/* Tilt on hover via JS */
-.srv-inner { transition:background .4s,transform .3s ease;will-change:transform; }
-.srv:hover .srv-inner { transform:perspective(800px) rotateX(1deg) rotateY(-1deg); }
-/* Contact shadow */
-.srv::after {
-  content:'';position:absolute;bottom:-12px;left:15%;width:70%;height:16px;
-  background:rgba(0,0,0,.25);filter:blur(14px);border-radius:50%;
-  opacity:0;transition:opacity .4s;pointer-events:none;
+.srv-row:hover .srv-body h3 { color:var(--white); }
+.srv-body p {
+  font-size:15px;line-height:1.7;color:var(--gray-600);font-weight:300;
+  max-width:480px;transition:color .4s;
 }
-.srv:hover::after { opacity:1; }
-/* Sibling dimming on grid hover */
-.srv-grid:hover .srv { opacity:.5;transition:opacity .4s,transform .4s; }
-.srv-grid:hover .srv:hover { opacity:1; }
+.srv-row:hover .srv-body p { color:var(--gray-400); }
+.srv-go {
+  padding-top:10px;font-size:20px;color:var(--gray-600);
+  transition:transform .4s cubic-bezier(.23,1,.32,1),color .4s;
+}
+.srv-row:hover .srv-go { transform:translateX(8px);color:var(--white); }
+/* Sibling dimming */
+.srv-list:hover .srv-row { opacity:.4; }
+.srv-list:hover .srv-row:hover { opacity:1; }
 
 /* ═══════════════════════════════════════
    SHOWCASE — horizontal scroll
@@ -458,19 +465,30 @@ nav {
   font-size:clamp(28px,3vw,44px);line-height:1.08;letter-spacing:-.025em;
   color:var(--white);margin-bottom:56px;
 }
-.cl-grid { display:grid;grid-template-columns:repeat(4,1fr);gap:28px; }
-.cl {
-  border-top:1px solid var(--gray-800);padding-top:24px;
-  transition:transform .4s cubic-bezier(.23,1,.32,1);
+/* Full-width editorial client rows */
+.cl-list { max-width:1200px; }
+.cl-row {
+  display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,64px);
+  align-items:center;
+  padding:clamp(28px,3vw,40px) 0;
+  border-top:1px solid var(--gray-800);
+  cursor:none;transition:opacity .4s;
 }
-.cl:hover { transform:translateY(-4px); }
-.cl-grid:hover .cl { opacity:.45;transition:opacity .4s,transform .4s; }
-.cl-grid:hover .cl:hover { opacity:1; }
-.cl-ico { width:32px;height:32px;margin-bottom:16px;color:var(--white);opacity:.4;transition:opacity .4s,transform .4s; }
-.cl:hover .cl-ico { opacity:1;transform:translateY(-2px); }
-.cl-ico svg { width:100%;height:100%; }
-.cl h3 { font-family:var(--serif);font-size:20px;font-weight:300;color:var(--white);margin-bottom:10px;line-height:1.3; }
-.cl p { font-size:13px;line-height:1.65;color:var(--gray-400);font-weight:300; }
+.cl-row:last-child { border-bottom:1px solid var(--gray-800); }
+.cl-row h3 {
+  font-family:var(--serif);font-size:clamp(24px,2.4vw,36px);font-weight:200;
+  color:var(--gray-300);line-height:1.15;letter-spacing:-.02em;
+  transition:color .4s;
+}
+.cl-row:hover h3 { color:var(--white); }
+.cl-row p {
+  font-size:15px;line-height:1.7;color:var(--gray-600);font-weight:300;
+  max-width:440px;transition:color .4s;
+}
+.cl-row:hover p { color:var(--gray-400); }
+/* Sibling dimming */
+.cl-list:hover .cl-row { opacity:.4; }
+.cl-list:hover .cl-row:hover { opacity:1; }
 
 /* ═══════════════════════════════════════
    CONTACT — underline inputs, editorial
@@ -566,9 +584,9 @@ footer {
   .cur,.cur-d{display:none}body,a,button,input,textarea{cursor:auto}
   .hero-geo{display:none}
   .about{grid-template-columns:1fr}.about-l{min-height:340px}
-  .srv-grid{grid-template-columns:1fr 1fr}
+  .srv-list::before{display:none}
   .sc-panel{width:380px}.sc-stat{width:280px}
-  .cl-grid{grid-template-columns:1fr 1fr}
+  .cl-row{grid-template-columns:1fr}
   .contact-grid{grid-template-columns:1fr}
   .ft-top{grid-template-columns:1fr 1fr}
 }
@@ -583,12 +601,12 @@ footer {
   .hero-vlines{display:none}
   .hero-meta{display:none}
   .about-l{min-height:280px;padding:48px 24px}.about-geo{width:180px;height:180px}
-  .srv-grid{grid-template-columns:1fr}.srv-grid .srv:nth-child(even){margin-top:0}
+  .srv-row{grid-template-columns:44px 1fr auto}.srv-n{width:44px;height:44px;font-size:12px}.srv-count{display:none}
   .sc-panel{width:300px}.sc-panel .vis{height:260px}.sc-stat{width:260px}
   .pillars{grid-template-columns:1fr;gap:32px}
   .pil{padding:0;border-left:none;border-top:1px solid var(--gray-200);padding-top:28px}
   .pil:first-child{border-top:none;padding-top:0}
-  .cl-grid{grid-template-columns:1fr 1fr;gap:20px}
+  .cl-row{grid-template-columns:1fr;gap:12px}
   .form-row{grid-template-columns:1fr}
   .ft-top{grid-template-columns:1fr;gap:28px}
   .ft-bot{flex-direction:column;gap:8px;text-align:center}
@@ -686,45 +704,44 @@ footer {
 <!-- SERVICES -->
 <section class="services" id="services">
   <div class="services-head">
-    <p class="t-label">Services</p>
-    <h2>Comprehensive Financial Solutions</h2>
+    <div>
+      <p class="t-label">Services</p>
+      <h2>Comprehensive Financial<br>Solutions</h2>
+    </div>
+    <span class="srv-count">04 Capabilities</span>
   </div>
-  <div class="srv-grid">
-    <div class="srv">
-      <div class="srv-inner">
-        <div class="srv-num">01</div>
-        <div class="srv-ico"><svg viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1"><polyline points="4,34 13,21 22,26 31,14 40,8"/><circle cx="13" cy="21" r="2" fill="currentColor" stroke="none" opacity=".5"/><circle cx="31" cy="14" r="2" fill="currentColor" stroke="none" opacity=".5"/></svg></div>
+  <div class="srv-list">
+    <div class="srv-row">
+      <div class="srv-n">01</div>
+      <div class="srv-body">
         <h3>Equity Brokerage</h3>
-        <p>Access global equity markets with expert execution and research-driven insights.</p>
-        <span class="srv-arr">&rarr;</span>
+        <p>Access global equity markets with expert execution and research-driven insights across developed and emerging markets.</p>
       </div>
+      <span class="srv-go">&rarr;</span>
     </div>
-    <div class="srv">
-      <div class="srv-inner">
-        <div class="srv-num">02</div>
-        <div class="srv-ico"><svg viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1"><rect x="4" y="10" width="36" height="26"/><line x1="4" y1="18" x2="40" y2="18"/><line x1="4" y1="26" x2="40" y2="26"/><circle cx="15" cy="22" r="3" opacity=".3"/></svg></div>
+    <div class="srv-row">
+      <div class="srv-n">02</div>
+      <div class="srv-body">
         <h3>Fixed Income</h3>
-        <p>Navigate bond markets with precision, aligned with your risk appetite and return targets.</p>
-        <span class="srv-arr">&rarr;</span>
+        <p>Navigate bond markets with precision, aligned with your risk appetite and return targets across sovereign and corporate debt.</p>
       </div>
+      <span class="srv-go">&rarr;</span>
     </div>
-    <div class="srv">
-      <div class="srv-inner">
-        <div class="srv-num">03</div>
-        <div class="srv-ico"><svg viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1"><polygon points="22,4 40,14 40,32 22,40 4,32 4,14" opacity=".6"/><polygon points="22,10 34,16 34,30 22,36 10,30 10,16" opacity=".3"/><circle cx="22" cy="22" r="3" fill="currentColor" stroke="none" opacity=".3"/></svg></div>
+    <div class="srv-row">
+      <div class="srv-n">03</div>
+      <div class="srv-body">
         <h3>Commodity Trading</h3>
-        <p>Strategic positioning in precious metals, energy, and agricultural products.</p>
-        <span class="srv-arr">&rarr;</span>
+        <p>Strategic positioning in precious metals, energy, and agricultural products with direct market access and deep liquidity.</p>
       </div>
+      <span class="srv-go">&rarr;</span>
     </div>
-    <div class="srv">
-      <div class="srv-inner">
-        <div class="srv-num">04</div>
-        <div class="srv-ico"><svg viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1"><circle cx="22" cy="16" r="7"/><path d="M10,38 C10,30 15,26 22,26 C29,26 34,30 34,38" opacity=".5"/><circle cx="22" cy="16" r="11" stroke-dasharray="2,3" opacity=".2"/></svg></div>
+    <div class="srv-row">
+      <div class="srv-n">04</div>
+      <div class="srv-body">
         <h3>Advisory Services</h3>
-        <p>Independent, conflict-free advisory backed by deep market expertise.</p>
-        <span class="srv-arr">&rarr;</span>
+        <p>Independent, conflict-free advisory backed by deep market expertise and a genuine commitment to your objectives.</p>
       </div>
+      <span class="srv-go">&rarr;</span>
     </div>
   </div>
 </section>
@@ -795,11 +812,23 @@ footer {
   <div class="clients-c">
     <p class="t-label">Clients</p>
     <h2>Who We Work With</h2>
-    <div class="cl-grid">
-      <div class="cl"><div class="cl-ico"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1"><circle cx="16" cy="10" r="5"/><path d="M7,28 C7,22 10,20 16,20 C22,20 25,22 25,28"/></svg></div><h3>High-Net-Worth Individuals</h3><p>Tailored brokerage for sophisticated investors seeking personalized execution.</p></div>
-      <div class="cl"><div class="cl-ico"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1"><rect x="4" y="10" width="24" height="18"/><path d="M4,16 L16,8 L28,16"/><line x1="12" y1="19" x2="12" y2="28"/><line x1="20" y1="19" x2="20" y2="28"/><line x1="12" y1="19" x2="20" y2="19"/></svg></div><h3>Corporate Treasuries</h3><p>Optimizing cash management, hedging strategies, and investment portfolios.</p></div>
-      <div class="cl"><div class="cl-ico"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1"><rect x="2" y="5" width="28" height="22"/><polyline points="7,21 12,14 17,18 24,10"/><circle cx="24" cy="10" r="2" fill="currentColor" opacity=".3"/></svg></div><h3>Institutional Investors</h3><p>Institutional-grade execution, research, and market access across asset classes.</p></div>
-      <div class="cl"><div class="cl-ico"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1"><circle cx="16" cy="16" r="12"/><ellipse cx="16" cy="16" rx="12" ry="5"/><ellipse cx="16" cy="16" rx="5" ry="12"/><circle cx="16" cy="16" r="2" fill="currentColor" opacity=".3"/></svg></div><h3>International Investors</h3><p>Cross-border investment into UAE and regional markets with local expertise.</p></div>
+    <div class="cl-list">
+      <div class="cl-row">
+        <h3>High-Net-Worth Individuals</h3>
+        <p>Tailored brokerage solutions for sophisticated investors seeking personalized execution and advisory across global markets.</p>
+      </div>
+      <div class="cl-row">
+        <h3>Corporate Treasuries</h3>
+        <p>Helping organizations optimize cash management, hedging strategies, and investment portfolios with institutional precision.</p>
+      </div>
+      <div class="cl-row">
+        <h3>Institutional Investors</h3>
+        <p>Providing institutional-grade execution, research, and direct market access across every major asset class.</p>
+      </div>
+      <div class="cl-row">
+        <h3>International Investors</h3>
+        <p>Facilitating cross-border investment into UAE and regional markets with deep local expertise and regulatory knowledge.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -968,7 +997,7 @@ gsap.from('.about-r .rule',{scrollTrigger:{trigger:'.about-r .rule',start:'top 8
 
 // Services
 gsap.from('.services-head > *',{scrollTrigger:{trigger:'.services-head',start:'top 80%'},y:48,opacity:0,duration:.6,ease:'power2.out',stagger:.1});
-gsap.from('.srv',{scrollTrigger:{trigger:'.srv-grid',start:'top 85%'},y:48,opacity:0,duration:.8,ease:'power3.out',stagger:.15});
+gsap.from('.srv-row',{scrollTrigger:{trigger:'.srv-list',start:'top 85%'},y:48,opacity:0,duration:.8,ease:'power3.out',stagger:.12});
 
 // Horizontal scroll
 const scTrack=document.getElementById('scTrack'),scWrap=document.querySelector('.sc-wrap');
@@ -998,7 +1027,7 @@ gsap.from('.stmt p',{scrollTrigger:{trigger:'.stmt p',start:'top 85%'},y:24,opac
 
 // Clients
 gsap.from('.clients-c .t-label, .clients-c > h2',{scrollTrigger:{trigger:'.clients-c',start:'top 80%'},y:48,opacity:0,duration:.6,ease:'power2.out',stagger:.1});
-gsap.from('.cl',{scrollTrigger:{trigger:'.cl-grid',start:'top 82%'},y:48,opacity:0,duration:.8,ease:'power3.out',stagger:.1});
+gsap.from('.cl-row',{scrollTrigger:{trigger:'.cl-list',start:'top 82%'},y:48,opacity:0,duration:.8,ease:'power3.out',stagger:.1});
 
 // Contact
 gsap.from('.contact-l > *',{scrollTrigger:{trigger:'.contact-l',start:'top 80%'},y:48,opacity:0,duration:.6,ease:'power2.out',stagger:.1});
