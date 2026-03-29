@@ -924,7 +924,7 @@ footer {
     <div class="contact-l">
       <p class="t-label">Contact</p>
       <h2>Start a <em>Conversation</em></h2>
-      <form onsubmit="event.preventDefault()">
+      <form id="contactForm">
         <div class="form-row">
           <div class="field"><input type="text" placeholder=" " required><label>Full Name</label></div>
           <div class="field"><input type="email" placeholder=" " required><label>Email</label></div>
@@ -1015,6 +1015,16 @@ function dp(){ctx.clearRect(0,0,cv.width,cv.height);pts.forEach(p=>{p.x+=p.vx;p.
 /* ── Mobile nav ── */
 document.getElementById('mobBtn').addEventListener('click',()=>document.getElementById('navR').classList.toggle('open'));
 document.querySelectorAll('.nav-r a').forEach(a=>a.addEventListener('click',()=>document.getElementById('navR').classList.remove('open')));
+
+// Smooth scroll with offset for fixed nav
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    const id=a.getAttribute('href');if(id==='#')return;
+    const el=document.querySelector(id);if(!el)return;
+    e.preventDefault();
+    lenis.scrollTo(el,{offset:-80});
+  });
+});
 
 /* ── Nav scroll — hide/show ── */
 const nav=document.getElementById('nav'),secs=document.querySelectorAll('section[id]'),nLinks=document.querySelectorAll('.nav-r a');
@@ -1139,6 +1149,16 @@ document.querySelectorAll('[data-rule]').forEach(r=>{
 
 // Footer
 gsap.from('.ft-top > *',{scrollTrigger:{trigger:'footer',start:'top 88%'},y:16,opacity:0,duration:.45,ease:'power2.out',stagger:.08});
+
+// Form submit
+document.getElementById('contactForm').addEventListener('submit',function(e){
+  e.preventDefault();
+  const btn=this.querySelector('.btn');
+  const origHTML=btn.innerHTML;
+  btn.innerHTML='<span>Sent</span>';
+  btn.style.pointerEvents='none';btn.style.opacity='.6';
+  setTimeout(()=>{btn.innerHTML=origHTML;btn.style.pointerEvents='';btn.style.opacity='';this.reset();},2000);
+});
 
 })();
 </script>
