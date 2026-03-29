@@ -442,13 +442,30 @@ nav {
   max-width:540px;margin:0 auto 32px;
 }
 .stmt-rule-b { width:48px;height:1px;background:var(--black);margin:0 auto;opacity:.1; }
-.stmt .br-l,.stmt .br-r {
-  position:absolute;top:50%;transform:translateY(-50%);
-  font-size:120px;font-weight:200;color:var(--black);opacity:.03;
-  font-family:var(--serif);
+/* Corner marks (OTC-style) */
+.stmt .cr {
+  position:absolute;width:32px;height:32px;opacity:.08;pointer-events:none;
 }
-.stmt .br-l { left:clamp(16px,4vw,60px); }
-.stmt .br-r { right:clamp(16px,4vw,60px); }
+.stmt .cr::before,.stmt .cr::after { content:'';position:absolute;background:var(--black); }
+.stmt .cr-tl { top:clamp(24px,4vw,60px);left:clamp(24px,4vw,60px); }
+.stmt .cr-tl::before { top:0;left:0;width:1px;height:100%; }
+.stmt .cr-tl::after { top:0;left:0;width:100%;height:1px; }
+.stmt .cr-tr { top:clamp(24px,4vw,60px);right:clamp(24px,4vw,60px); }
+.stmt .cr-tr::before { top:0;right:0;width:1px;height:100%; }
+.stmt .cr-tr::after { top:0;right:0;width:100%;height:1px; }
+.stmt .cr-bl { bottom:clamp(24px,4vw,60px);left:clamp(24px,4vw,60px); }
+.stmt .cr-bl::before { bottom:0;left:0;width:1px;height:100%; }
+.stmt .cr-bl::after { bottom:0;left:0;width:100%;height:1px; }
+.stmt .cr-br { bottom:clamp(24px,4vw,60px);right:clamp(24px,4vw,60px); }
+.stmt .cr-br::before { bottom:0;right:0;width:1px;height:100%; }
+.stmt .cr-br::after { bottom:0;right:0;width:100%;height:1px; }
+/* Side dashes */
+.stmt .sd {
+  position:absolute;top:50%;width:clamp(24px,3vw,48px);height:1px;
+  background:var(--black);opacity:.06;
+}
+.stmt .sd-l { left:0; }
+.stmt .sd-r { right:0; }
 
 /* ═══════════════════════════════════════
    CLIENTS — dark with grid mesh
@@ -619,7 +636,7 @@ footer {
   .ft-bot{flex-direction:column;gap:8px;text-align:center}
   .about-fig{display:none}
   .sec-rule{display:none}
-  .stmt .br-l,.stmt .br-r{display:none}
+  .stmt .cr{display:none}.stmt .sd{display:none}
 }
 </style>
 </head>
@@ -804,8 +821,12 @@ footer {
 
 <!-- STATEMENT -->
 <section class="stmt">
-  <span class="br-l" aria-hidden="true">\</span>
-  <span class="br-r" aria-hidden="true">/</span>
+  <div class="cr cr-tl" aria-hidden="true"></div>
+  <div class="cr cr-tr" aria-hidden="true"></div>
+  <div class="cr cr-bl" aria-hidden="true"></div>
+  <div class="cr cr-br" aria-hidden="true"></div>
+  <div class="sd sd-l" aria-hidden="true"></div>
+  <div class="sd sd-r" aria-hidden="true"></div>
   <div class="stmt-rule"></div>
   <h2>Your Interests. Our <em>Expertise.</em><br>No Conflicts.</h2>
   <p>Elizabeth Commercial Brokers partners with those who value transparency, governance, and long-term thinking.</p>
