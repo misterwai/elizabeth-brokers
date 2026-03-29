@@ -390,11 +390,14 @@ nav {
 .stat-l { font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--gray-600);font-weight:400; }
 .sc-panel { flex-shrink:0;width:480px; }
 .sc-panel .vis {
-  height:340px;background:var(--dark);border:1px solid var(--gray-800);
+  height:340px;border:1px solid var(--gray-800);
   display:flex;align-items:center;justify-content:center;margin-bottom:24px;
   position:relative;overflow:hidden;
 }
-.sc-panel .vis svg { width:180px;height:180px;opacity:.65; }
+.sc-panel:nth-child(2) .vis { background:radial-gradient(ellipse at 40% 40%,rgba(35,35,35,1) 0%,rgba(20,20,20,1) 70%); }
+.sc-panel:nth-child(3) .vis { background:radial-gradient(ellipse at 60% 50%,rgba(35,35,35,1) 0%,rgba(20,20,20,1) 70%); }
+.sc-panel:nth-child(4) .vis { background:radial-gradient(ellipse at 50% 60%,rgba(35,35,35,1) 0%,rgba(20,20,20,1) 70%); }
+.sc-panel .vis svg { width:180px;height:180px;opacity:.55; }
 .sc-panel .vis-num {
   position:absolute;top:16px;left:20px;
   font-size:10px;letter-spacing:.2em;color:var(--gray-600);text-transform:uppercase;
