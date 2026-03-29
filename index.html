@@ -1,0 +1,1951 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Elizabeth Commercial Brokers FZCO — Dubai Financial Brokerage</title>
+<meta name="description" content="Elizabeth Commercial Brokers FZCO provides expert financial brokerage services from the heart of Dubai's DMCC Free Zone.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --warm-dark: #111111;
+  --warm-black: #1A1A1A;
+  --cream: #F0F0F0;
+  --warm-cream: #E8E8E8;
+  --off-white: #F5F5F5;
+  --gold: #FFFFFF;
+  --warm-gold: #CCCCCC;
+  --text-muted: #6B6B6B;
+  --text-light: #A0A0A0;
+  --border-subtle: #D0D0D0;
+  --border-dark: #2A2A2A;
+}
+
+html { scroll-behavior: initial; /* Lenis handles this */ }
+
+body {
+  font-family: 'Space Grotesk', sans-serif;
+  color: var(--warm-black);
+  background: var(--cream);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* ─── CUSTOM CURSOR ─── */
+.cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 12px;
+  height: 12px;
+  background: var(--gold);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: difference;
+  transition: width 0.3s cubic-bezier(0.23,1,0.32,1), height 0.3s cubic-bezier(0.23,1,0.32,1), background 0.3s;
+  transform: translate(-50%, -50%);
+}
+.cursor.hovering {
+  width: 48px;
+  height: 48px;
+  background: rgba(255,255,255,0.15);
+  border: 1px solid var(--gold);
+}
+.cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 4px;
+  background: var(--gold);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+}
+
+/* ─── SCROLL PROGRESS ─── */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  background: var(--gold);
+  z-index: 10001;
+  transform-origin: left;
+  will-change: transform;
+}
+
+/* ─── GRAIN OVERLAY ─── */
+.grain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9998;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 180px;
+}
+
+/* ─── SECTION UTILITIES ─── */
+.section-label {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+}
+.gold-line {
+  width: 60px;
+  height: 2px;
+  background: var(--gold);
+  margin: 28px 0;
+  transform-origin: left;
+}
+.reveal { clip-path: inset(0 0 100% 0); transition: clip-path 0s; }
+.reveal.visible { clip-path: inset(0 0 0% 0); transition: clip-path 0.8s cubic-bezier(0.65,0,0.35,1); }
+.fade-up { opacity: 0; transform: translateY(40px); }
+.fade-up.visible { opacity: 1; transform: translateY(0); transition: opacity 0.7s cubic-bezier(0.23,1,0.32,1), transform 0.7s cubic-bezier(0.23,1,0.32,1); }
+
+/* ─── NAV ─── */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 72px;
+  background: rgba(17,17,17,0.9);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 80px;
+  z-index: 1000;
+  transition: background 0.4s;
+}
+.nav.scrolled { background: rgba(17,17,17,0.97); }
+.nav-logo {
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 6px;
+  color: var(--cream);
+  text-decoration: none;
+  text-transform: uppercase;
+}
+.nav-links { display: flex; gap: 40px; list-style: none; }
+.nav-links a {
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 1.5px;
+  color: var(--text-light);
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: color 0.3s;
+  position: relative;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--gold);
+  transition: width 0.4s cubic-bezier(0.23,1,0.32,1);
+}
+.nav-links a:hover, .nav-links a.active { color: var(--cream); }
+.nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+.nav-mobile-btn {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: none;
+  padding: 8px;
+}
+.nav-mobile-btn span {
+  width: 24px;
+  height: 1.5px;
+  background: var(--cream);
+  transition: 0.3s;
+}
+
+/* ─── HERO ─── */
+.hero {
+  position: relative;
+  height: 100vh;
+  min-height: 700px;
+  display: flex;
+  align-items: flex-end;
+  padding: 0 80px 96px;
+  overflow: hidden;
+  background: var(--warm-dark);
+}
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  will-change: transform;
+}
+.hero-bg img {
+  width: 100%;
+  height: 120%;
+  object-fit: cover;
+  object-position: center 20%;
+  filter: grayscale(1);
+}
+.hero-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(170deg, rgba(17,17,17,0.25) 0%, rgba(17,17,17,0.6) 45%, rgba(17,17,17,0.92) 100%);
+}
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 1280px;
+  width: 100%;
+}
+.hero-label {
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 2.5px;
+  color: var(--warm-gold);
+  margin-bottom: 32px;
+  text-transform: uppercase;
+}
+.hero-headline {
+  font-size: clamp(44px, 6.5vw, 92px);
+  font-weight: 300;
+  letter-spacing: -0.04em;
+  line-height: 1.04;
+  color: var(--cream);
+  max-width: 900px;
+  margin-bottom: 40px;
+}
+.hero-headline .line {
+  display: block;
+  overflow: hidden;
+}
+.hero-headline .line-inner {
+  display: block;
+  transform: translateY(110%);
+}
+.hero-sub {
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 28px;
+  color: var(--text-light);
+  max-width: 440px;
+  margin-left: 28%;
+  margin-bottom: 48px;
+}
+.hero-actions { display: flex; align-items: center; gap: 32px; }
+.btn-gold {
+  display: inline-block;
+  padding: 18px 40px;
+  background: var(--gold);
+  color: var(--warm-dark);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: none;
+  border-radius: 0;
+  cursor: none;
+  transition: background 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+.btn-gold:hover { background: #E0E0E0; }
+.btn-gold::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.06);
+  transform: translateX(-100%);
+  transition: transform 0.5s cubic-bezier(0.23,1,0.32,1);
+}
+.btn-gold:hover::before { transform: translateX(0); }
+.btn-text {
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  color: var(--gold);
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: color 0.3s;
+  cursor: none;
+}
+.btn-text:hover { color: #D4B35A; }
+.hero-gold-line {
+  position: absolute;
+  bottom: 60px;
+  left: 80px;
+  width: 120px;
+  height: 1px;
+  background: var(--gold);
+  z-index: 2;
+  transform-origin: left;
+}
+/* Hero geometry */
+.hero-geo {
+  position: absolute;
+  top: 12%;
+  left: 6%;
+  z-index: 1;
+  width: 420px;
+  height: 420px;
+  pointer-events: none;
+  perspective: 800px;
+}
+.hero-geo .orbit {
+  position: absolute;
+  border: 0.5px dashed var(--gold);
+  border-radius: 50%;
+  opacity: 0.15;
+}
+.hero-geo .o1 { width: 420px; height: 420px; top: 50px; right: 0; }
+.hero-geo .o2 { width: 260px; height: 260px; top: 130px; right: 80px; }
+.hero-geo .o3 { width: 100px; height: 100px; top: 210px; right: 160px; }
+.hero-geo .dot-float {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  background: var(--gold);
+  border-radius: 50%;
+}
+.hero-geo .d1 { top: 50px; right: 210px; opacity: 0.6; }
+.hero-geo .d2 { top: 260px; right: 0; opacity: 0.35; width: 4px; height: 4px; }
+.hero-geo .d3 { top: 420px; right: 120px; opacity: 0.25; width: 3px; height: 3px; }
+.hero-cube {
+  position: absolute;
+  top: 170px;
+  right: 145px;
+  width: 70px;
+  height: 70px;
+  transform-style: preserve-3d;
+}
+.hero-cube .face {
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  border: 0.5px solid var(--gold);
+  opacity: 0.1;
+}
+.hero-cube .front { transform: translateZ(35px); }
+.hero-cube .back { transform: translateZ(-35px); }
+.hero-cube .left { transform: rotateY(-90deg) translateZ(35px); }
+.hero-cube .right { transform: rotateY(90deg) translateZ(35px); }
+.hero-cube .top { transform: rotateX(90deg) translateZ(35px); }
+.hero-cube .bottom { transform: rotateX(-90deg) translateZ(35px); }
+/* Particle canvas */
+.particles-canvas {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ─── MARQUEE ─── */
+.marquee {
+  background: var(--warm-dark);
+  border-top: 1px solid var(--border-dark);
+  border-bottom: 1px solid var(--border-dark);
+  padding: 18px 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.marquee-track {
+  display: inline-flex;
+  animation: marquee 40s linear infinite;
+}
+.marquee-item {
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--text-light);
+  padding: 0 48px;
+  opacity: 0.5;
+}
+.marquee-item .sep {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  background: var(--gold);
+  border-radius: 50%;
+  margin-left: 48px;
+  vertical-align: middle;
+  opacity: 0.6;
+}
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ─── ABOUT ─── */
+.about {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 640px;
+}
+.about-visual {
+  position: relative;
+  background: var(--warm-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  min-height: 540px;
+}
+.about-visual .dashed-rect {
+  position: absolute;
+  inset: 32px;
+  border: 0.5px dashed var(--cream);
+  opacity: 0.07;
+  pointer-events: none;
+}
+.about-visual .fig-label {
+  position: absolute;
+  right: 24px;
+  top: 50%;
+  transform: rotate(-90deg) translateX(50%);
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: var(--cream);
+  opacity: 0.25;
+  text-transform: uppercase;
+}
+.about-3d {
+  width: 300px;
+  height: 300px;
+  position: relative;
+  perspective: 600px;
+}
+.about-prism {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+}
+.about-prism .ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border-radius: 50%;
+  opacity: 0.15;
+}
+.about-prism .r1 { width: 260px; height: 260px; margin: -130px 0 0 -130px; border: 1px solid var(--gold); }
+.about-prism .r2 { width: 180px; height: 180px; margin: -90px 0 0 -90px; border: 1px solid var(--gold); transform: rotateX(60deg); }
+.about-prism .r3 { width: 180px; height: 180px; margin: -90px 0 0 -90px; border: 1px solid var(--gold); transform: rotateY(60deg); }
+.about-prism .r4 { width: 100px; height: 100px; margin: -50px 0 0 -50px; border: 1px dashed var(--gold); opacity: 0.25; }
+.about-prism .center-diamond {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  background: var(--gold);
+  opacity: 0.4;
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+.about-prism .node {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  background: var(--gold);
+  border-radius: 50%;
+  opacity: 0.4;
+}
+.about-prism .n1 { top: 18px; left: 50%; margin-left: -2.5px; }
+.about-prism .n2 { bottom: 18px; left: 50%; margin-left: -2.5px; }
+.about-prism .n3 { top: 50%; left: 18px; margin-top: -2.5px; }
+.about-prism .n4 { top: 50%; right: 18px; margin-top: -2.5px; }
+.about-grid-lines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.03;
+}
+.about-grid-lines .gl { position: absolute; background: var(--cream); }
+.about-grid-lines .gl-h { height: 1px; left: 0; right: 0; }
+.about-grid-lines .gl-v { width: 1px; top: 0; bottom: 0; }
+.about-text {
+  background: var(--cream);
+  padding: 96px 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.about-text .section-label { color: var(--text-muted); }
+.about-text h2 {
+  font-size: 42px;
+  font-weight: 300;
+  letter-spacing: -2px;
+  line-height: 52px;
+  color: var(--warm-black);
+}
+.about-text p {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 28px;
+  color: var(--text-muted);
+  margin-bottom: 20px;
+}
+
+/* ─── SERVICES ─── */
+.services {
+  background: var(--warm-dark);
+  padding: 120px 80px;
+  position: relative;
+  overflow: hidden;
+}
+.services-header {
+  max-width: 600px;
+  margin-bottom: 72px;
+}
+.services-header .section-label { color: var(--warm-gold); }
+.services-header h2 {
+  font-size: 44px;
+  font-weight: 300;
+  letter-spacing: -2px;
+  line-height: 54px;
+  color: var(--cream);
+}
+.services-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  max-width: 1280px;
+}
+.services-grid .card:nth-child(even) { margin-top: 40px; }
+/* Glassmorphism cards */
+.card {
+  background: rgba(20,20,20,0.6);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(50,50,50,0.6);
+  padding: 48px 40px;
+  position: relative;
+  transition: border-color 0.4s, background 0.4s, transform 0.4s cubic-bezier(0.23,1,0.32,1);
+  cursor: none;
+}
+.card:hover {
+  border-color: rgba(255,255,255,0.4);
+  background: rgba(20,20,20,0.8);
+  transform: translateY(-4px);
+}
+.card-number {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--gold);
+  letter-spacing: 1px;
+  margin-bottom: 24px;
+}
+.card-icon {
+  width: 48px;
+  height: 48px;
+  margin-bottom: 24px;
+  color: var(--gold);
+}
+.card-icon svg { width: 100%; height: 100%; }
+.card h3 {
+  font-size: 22px;
+  font-weight: 300;
+  letter-spacing: -0.5px;
+  line-height: 28px;
+  color: var(--cream);
+  margin-bottom: 16px;
+}
+.card p {
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 24px;
+  color: #888888;
+  margin-bottom: 24px;
+}
+.card-arrow {
+  font-size: 20px;
+  color: var(--gold);
+  display: inline-block;
+  transition: transform 0.4s cubic-bezier(0.23,1,0.32,1);
+}
+.card:hover .card-arrow { transform: translateX(8px); }
+.services-deco-circle {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  border: 0.5px dashed var(--gold);
+  border-radius: 50%;
+  opacity: 0.06;
+  top: 10%;
+  right: -10%;
+  pointer-events: none;
+}
+
+/* ─── HORIZONTAL SCROLL SHOWCASE ─── */
+.showcase-wrap {
+  overflow: hidden;
+  background: var(--warm-dark);
+  border-top: 1px solid var(--border-dark);
+}
+.showcase {
+  padding: 80px 0 80px 80px;
+  position: relative;
+}
+.showcase-label {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--text-light);
+  margin-bottom: 48px;
+}
+.showcase-track {
+  display: flex;
+  gap: 40px;
+  will-change: transform;
+}
+.showcase-panel {
+  flex-shrink: 0;
+  width: 520px;
+  position: relative;
+}
+.showcase-panel .panel-visual {
+  height: 360px;
+  background: rgba(20,20,20,0.4);
+  border: 1px solid var(--border-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+  margin-bottom: 28px;
+}
+.showcase-panel .panel-visual svg {
+  width: 200px;
+  height: 200px;
+  opacity: 0.7;
+}
+.panel-number {
+  position: absolute;
+  top: 20px;
+  left: 24px;
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: var(--warm-gold);
+  opacity: 0.6;
+  text-transform: uppercase;
+}
+.showcase-panel h3 {
+  font-size: 24px;
+  font-weight: 300;
+  color: var(--cream);
+  letter-spacing: -0.5px;
+  margin-bottom: 10px;
+}
+.showcase-panel p {
+  font-size: 14px;
+  line-height: 22px;
+  color: #777777;
+}
+/* Globe SVG */
+.globe-svg .ring { fill: none; stroke: var(--gold); stroke-width: 0.5; }
+.globe-svg .ring-b { fill: none; stroke: var(--gold); stroke-width: 1; }
+.globe-svg .dot { fill: var(--gold); }
+
+/* Stat card in showcase */
+.showcase-stat-panel {
+  flex-shrink: 0;
+  width: 360px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 20px;
+}
+.showcase-stat-panel .showcase-quote {
+  font-size: 32px;
+  font-weight: 300;
+  letter-spacing: -1px;
+  line-height: 42px;
+  color: var(--cream);
+  margin-bottom: 40px;
+}
+.showcase-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+.showcase-stat {
+  padding-top: 20px;
+  border-top: 1px solid var(--border-dark);
+}
+.showcase-stat .stat-number {
+  font-size: 42px;
+  font-weight: 300;
+  color: var(--gold);
+  letter-spacing: -1px;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.showcase-stat .stat-label {
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #666666;
+}
+
+/* ─── WHY US ─── */
+.why-us {
+  background: var(--cream);
+  padding: 120px 80px;
+}
+.why-us-header {
+  max-width: 700px;
+  margin-bottom: 72px;
+}
+.why-us-header .section-label { color: var(--text-muted); }
+.why-us-header h2 {
+  font-size: 48px;
+  font-weight: 300;
+  letter-spacing: -2px;
+  line-height: 56px;
+  color: var(--warm-black);
+}
+.trust-pillars {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  max-width: 1280px;
+}
+.pillar {
+  padding: 0 48px;
+  border-left: 1px solid var(--border-subtle);
+}
+.pillar:first-child { padding-left: 0; border-left: none; }
+.pillar-icon {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 24px;
+  color: var(--gold);
+}
+.pillar-icon svg { width: 100%; height: 100%; }
+.pillar-number {
+  font-size: 48px;
+  font-weight: 300;
+  color: var(--gold);
+  margin-bottom: 20px;
+  line-height: 1;
+}
+.pillar h3 {
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--warm-black);
+  margin-bottom: 16px;
+}
+.pillar p {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 26px;
+  color: var(--text-muted);
+}
+
+/* ─── STATEMENT ─── */
+.statement {
+  background: var(--warm-cream);
+  padding: 140px 80px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.statement-bracket {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 140px;
+  font-weight: 300;
+  color: var(--warm-black);
+  opacity: 0.04;
+  line-height: 1;
+  user-select: none;
+  pointer-events: none;
+}
+.statement-bracket.left { left: 60px; }
+.statement-bracket.right { right: 60px; }
+.statement-line-h {
+  position: absolute;
+  top: 50%;
+  height: 1px;
+  width: 140px;
+  background: var(--border-subtle);
+  opacity: 0.3;
+  pointer-events: none;
+}
+.statement-line-h.left { left: 0; }
+.statement-line-h.right { right: 0; }
+.statement .gold-line-v {
+  width: 1px;
+  height: 60px;
+  background: var(--gold);
+  margin: 0 auto 40px;
+}
+.statement h2 {
+  font-size: clamp(28px, 3.2vw, 48px);
+  font-weight: 300;
+  letter-spacing: -2px;
+  line-height: 1.2;
+  color: var(--warm-black);
+  max-width: 760px;
+  margin-bottom: 24px;
+}
+.statement p {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 30px;
+  color: var(--text-muted);
+  max-width: 600px;
+  margin-bottom: 32px;
+}
+.statement .gold-line-bottom {
+  width: 60px;
+  height: 1px;
+  background: var(--gold);
+  margin: 0 auto;
+}
+
+/* ─── CLIENTS ─── */
+.clients {
+  position: relative;
+  padding: 120px 80px;
+  overflow: hidden;
+  background: var(--warm-dark);
+}
+.clients-mesh {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.clients-mesh svg { width: 100%; height: 100%; opacity: 0.035; }
+.clients-watermark {
+  position: absolute;
+  bottom: -20px;
+  right: 40px;
+  font-size: 180px;
+  font-weight: 700;
+  letter-spacing: 20px;
+  color: var(--cream);
+  opacity: 0.025;
+  z-index: 1;
+  pointer-events: none;
+  user-select: none;
+}
+.clients-content { position: relative; z-index: 2; max-width: 1280px; }
+.clients-content .section-label { color: var(--warm-gold); }
+.clients-content > h2 {
+  font-size: 44px;
+  font-weight: 300;
+  letter-spacing: -2px;
+  line-height: 54px;
+  color: var(--cream);
+  margin-bottom: 64px;
+}
+.clients-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
+}
+.client-card {
+  border-top: 1px solid #333333;
+  padding-top: 28px;
+  transition: transform 0.4s cubic-bezier(0.23,1,0.32,1);
+  cursor: none;
+}
+.client-card:hover { transform: translateY(-4px); }
+.client-card .client-icon {
+  width: 36px;
+  height: 36px;
+  margin-bottom: 20px;
+  color: var(--gold);
+  opacity: 0.6;
+}
+.client-card .client-icon svg { width: 100%; height: 100%; }
+.client-card h3 {
+  font-size: 22px;
+  font-weight: 300;
+  letter-spacing: -0.3px;
+  line-height: 28px;
+  color: var(--cream);
+  margin-bottom: 12px;
+}
+.client-card p {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 22px;
+  color: #777777;
+}
+
+/* ─── CONTACT ─── */
+.contact {
+  background: var(--cream);
+  padding: 120px 80px;
+}
+.contact-inner {
+  max-width: 1280px;
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 80px;
+}
+.contact-left .section-label { color: var(--text-muted); }
+.contact-left h2 {
+  font-size: 36px;
+  font-weight: 300;
+  letter-spacing: -1.5px;
+  line-height: 44px;
+  color: var(--warm-black);
+  margin-bottom: 40px;
+}
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+.form-group { margin-bottom: 16px; position: relative; }
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 14px 18px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 15px;
+  background: rgba(255,255,255,0.8);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--border-subtle);
+  border-radius: 0;
+  color: var(--warm-black);
+  transition: border-color 0.3s, background 0.3s;
+  height: 48px;
+  cursor: none;
+}
+.form-group textarea { height: 140px; resize: vertical; }
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--gold);
+  background: #fff;
+}
+.form-group input::placeholder,
+.form-group textarea::placeholder { color: #999999; }
+.contact-map-abstract {
+  margin-top: 40px;
+  position: relative;
+  height: 200px;
+  background: var(--warm-dark);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.contact-map-abstract svg {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  inset: 0;
+}
+.map-pin-abstract { position: relative; z-index: 2; }
+.map-pin-abstract .pin-dot {
+  width: 12px;
+  height: 12px;
+  background: var(--gold);
+  border-radius: 50%;
+}
+.map-pin-abstract .pin-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px dashed var(--gold);
+  border-radius: 50%;
+}
+.map-pin-abstract .ring1 { width: 40px; height: 40px; opacity: 0.3; }
+.map-pin-abstract .ring2 { width: 70px; height: 70px; opacity: 0.15; }
+.map-pin-abstract .ring3 { width: 110px; height: 110px; opacity: 0.08; }
+.contact-right { padding-top: 64px; }
+.contact-block { margin-bottom: 36px; }
+.contact-block-label {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 10px;
+}
+.contact-block p {
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 24px;
+  color: var(--text-muted);
+}
+
+/* ─── FOOTER ─── */
+.footer {
+  background: var(--warm-dark);
+  padding: 72px 80px 40px;
+}
+.footer-top {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr;
+  gap: 40px;
+  margin-bottom: 48px;
+}
+.footer-brand .footer-logo {
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 6px;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.footer-brand .footer-sub { font-size: 13px; color: #555555; }
+.footer-col h4 {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--text-light);
+  margin-bottom: 20px;
+}
+.footer-col ul { list-style: none; }
+.footer-col li { margin-bottom: 14px; }
+.footer-col a {
+  font-size: 14px;
+  color: #888888;
+  text-decoration: none;
+  transition: color 0.3s;
+  cursor: none;
+}
+.footer-col a:hover { color: var(--cream); }
+.footer-divider { height: 1px; background: #222222; margin-bottom: 24px; }
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.footer-bottom span { font-size: 12px; color: #555555; }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 1024px) {
+  .cursor, .cursor-dot { display: none; }
+  body { cursor: auto; }
+  .btn-gold, .card, .client-card, .nav-mobile-btn, .form-group input, .form-group textarea, .btn-text, .footer-col a { cursor: auto; }
+  .nav { padding: 0 40px; }
+  .hero { padding: 0 40px 72px; }
+  .hero-sub { margin-left: 0; }
+  .hero-geo { display: none; }
+  .about { grid-template-columns: 1fr; }
+  .about-visual { min-height: 380px; }
+  .about-text { padding: 64px 40px; }
+  .services { padding: 96px 40px; }
+  .showcase { padding: 60px 0 60px 40px; }
+  .showcase-panel { width: 420px; }
+  .why-us { padding: 96px 40px; }
+  .clients { padding: 96px 40px; }
+  .clients-grid { grid-template-columns: 1fr 1fr; }
+  .contact { padding: 96px 40px; }
+  .contact-inner { grid-template-columns: 1fr; gap: 48px; }
+  .footer { padding: 56px 40px 32px; }
+  .footer-top { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 768px) {
+  .nav { padding: 0 24px; }
+  .nav-links { display: none; }
+  .nav-links.open {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 72px;
+    left: 0;
+    right: 0;
+    background: rgba(17,17,17,0.97);
+    backdrop-filter: blur(20px);
+    padding: 24px;
+    gap: 20px;
+    border-top: 1px solid var(--border-dark);
+  }
+  .nav-mobile-btn { display: flex; }
+  .hero { padding: 0 24px 64px; min-height: 600px; }
+  .hero-gold-line { left: 24px; }
+  .hero-sub { margin-left: 0; }
+  .about-visual { min-height: 300px; }
+  .about-3d { width: 220px; height: 220px; }
+  .about-text { padding: 56px 24px; }
+  .about-text h2 { font-size: 32px; line-height: 40px; }
+  .services { padding: 72px 24px; }
+  .services-header h2 { font-size: 32px; line-height: 40px; }
+  .services-grid { grid-template-columns: 1fr; }
+  .services-grid .card:nth-child(even) { margin-top: 0; }
+  .showcase { padding: 48px 0 48px 24px; }
+  .showcase-panel { width: 320px; }
+  .showcase-panel .panel-visual { height: 280px; }
+  .showcase-stat-panel { width: 280px; }
+  .showcase-stat-panel .showcase-quote { font-size: 24px; line-height: 32px; }
+  .why-us { padding: 72px 24px; }
+  .why-us-header h2 { font-size: 32px; line-height: 40px; }
+  .trust-pillars { grid-template-columns: 1fr; gap: 40px; }
+  .pillar { padding: 0; border-left: none; border-top: 1px solid var(--border-subtle); padding-top: 32px; }
+  .pillar:first-child { border-top: none; padding-top: 0; }
+  .statement { padding: 72px 24px; }
+  .statement-bracket { font-size: 80px; }
+  .statement-bracket.left { left: 12px; }
+  .statement-bracket.right { right: 12px; }
+  .statement-line-h { display: none; }
+  .clients { padding: 72px 24px; }
+  .clients-content > h2 { font-size: 32px; line-height: 40px; }
+  .clients-grid { grid-template-columns: 1fr 1fr; gap: 24px; }
+  .contact { padding: 72px 24px; }
+  .contact-left h2 { font-size: 28px; line-height: 36px; }
+  .form-row { grid-template-columns: 1fr; }
+  .footer { padding: 48px 24px 24px; }
+  .footer-top { grid-template-columns: 1fr; gap: 32px; }
+  .marquee-item { padding: 0 24px; font-size: 12px; }
+}
+</style>
+</head>
+<body>
+
+<!-- Custom Cursor -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-dot" id="cursorDot"></div>
+
+<!-- Scroll Progress -->
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- Grain Overlay -->
+<div class="grain" aria-hidden="true"></div>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <a href="#" class="nav-logo">Elizabeth</a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#why-us">Why Us</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="nav-mobile-btn" id="navToggle" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-bg" id="heroBg">
+    <img src="https://images.pexels.com/photos/36355404/pexels-photo-36355404.jpeg?auto=compress&cs=tinysrgb&w=1400" alt="DMCC Uptown Tower at Jumeirah Lakes Towers, Dubai" loading="eager">
+  </div>
+  <canvas class="particles-canvas" id="particles"></canvas>
+  <div class="hero-geo" aria-hidden="true">
+    <div class="orbit o1"></div>
+    <div class="orbit o2"></div>
+    <div class="orbit o3"></div>
+    <div class="dot-float d1"></div>
+    <div class="dot-float d2"></div>
+    <div class="dot-float d3"></div>
+    <div class="hero-cube" id="heroCube">
+      <div class="face front"></div>
+      <div class="face back"></div>
+      <div class="face left"></div>
+      <div class="face right"></div>
+      <div class="face top"></div>
+      <div class="face bottom"></div>
+    </div>
+  </div>
+  <div class="hero-content">
+    <p class="hero-label">DMCC Licensed Brokerage &middot; Dubai, UAE</p>
+    <h1 class="hero-headline" id="heroHeadline">
+      <span class="line"><span class="line-inner">Your Financial</span></span>
+      <span class="line"><span class="line-inner">Future, Expertly</span></span>
+      <span class="line"><span class="line-inner">Managed</span></span>
+    </h1>
+    <p class="hero-sub">Elizabeth Commercial Brokers FZCO provides expert financial brokerage services from the heart of Dubai's DMCC Free Zone.</p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-gold" data-magnetic>Get Started</a>
+      <a href="#about" class="btn-text">Learn More &rarr;</a>
+    </div>
+  </div>
+  <div class="hero-gold-line"></div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <span class="marquee-item">Equity Brokerage <span class="sep"></span></span>
+    <span class="marquee-item">Fixed Income <span class="sep"></span></span>
+    <span class="marquee-item">Commodity Trading <span class="sep"></span></span>
+    <span class="marquee-item">Advisory Services <span class="sep"></span></span>
+    <span class="marquee-item">DMCC Licensed <span class="sep"></span></span>
+    <span class="marquee-item">Dubai, UAE <span class="sep"></span></span>
+    <span class="marquee-item">Equity Brokerage <span class="sep"></span></span>
+    <span class="marquee-item">Fixed Income <span class="sep"></span></span>
+    <span class="marquee-item">Commodity Trading <span class="sep"></span></span>
+    <span class="marquee-item">Advisory Services <span class="sep"></span></span>
+    <span class="marquee-item">DMCC Licensed <span class="sep"></span></span>
+    <span class="marquee-item">Dubai, UAE <span class="sep"></span></span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-visual">
+    <div class="about-grid-lines" aria-hidden="true">
+      <div class="gl gl-h" style="top:25%"></div>
+      <div class="gl gl-h" style="top:50%"></div>
+      <div class="gl gl-h" style="top:75%"></div>
+      <div class="gl gl-v" style="left:25%"></div>
+      <div class="gl gl-v" style="left:50%"></div>
+      <div class="gl gl-v" style="left:75%"></div>
+    </div>
+    <div class="dashed-rect"></div>
+    <span class="fig-label">FIG. A</span>
+    <div class="about-3d">
+      <div class="about-prism" id="aboutPrism">
+        <div class="ring r1"></div>
+        <div class="ring r2"></div>
+        <div class="ring r3"></div>
+        <div class="ring r4"></div>
+        <div class="center-diamond"></div>
+        <div class="node n1"></div>
+        <div class="node n2"></div>
+        <div class="node n3"></div>
+        <div class="node n4"></div>
+      </div>
+    </div>
+  </div>
+  <div class="about-text">
+    <p class="section-label">About</p>
+    <h2>Built on Trust, Driven by Expertise</h2>
+    <div class="gold-line"></div>
+    <p>Elizabeth Commercial Brokers FZCO is a DMCC-licensed financial brokerage operating from the heart of Dubai. We bring decades of collective experience across global equity, fixed income, commodity, and advisory markets to serve a discerning clientele.</p>
+    <p>Our philosophy is rooted in transparency, rigorous governance, and a genuine commitment to aligning our interests with those of our clients. We don't believe in conflicts of interest — we believe in building lasting partnerships built on trust and proven performance.</p>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="services-deco-circle" aria-hidden="true"></div>
+  <div class="services-header">
+    <p class="section-label">Services</p>
+    <h2>Comprehensive Financial Solutions</h2>
+  </div>
+  <div class="services-grid">
+    <div class="card">
+      <div class="card-number">01</div>
+      <div class="card-icon">
+        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2">
+          <polyline points="4,36 14,22 24,28 34,14 44,8"/>
+          <line x1="4" y1="44" x2="44" y2="44" opacity="0.3"/>
+          <line x1="4" y1="8" x2="4" y2="44" opacity="0.3"/>
+          <circle cx="14" cy="22" r="2.5" fill="currentColor" stroke="none" opacity="0.6"/>
+          <circle cx="24" cy="28" r="2.5" fill="currentColor" stroke="none" opacity="0.6"/>
+          <circle cx="34" cy="14" r="2.5" fill="currentColor" stroke="none" opacity="0.6"/>
+        </svg>
+      </div>
+      <h3>Equity Brokerage</h3>
+      <p>Access global equity markets with expert execution and research-driven insights.</p>
+      <span class="card-arrow">&rarr;</span>
+    </div>
+    <div class="card">
+      <div class="card-number">02</div>
+      <div class="card-icon">
+        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2">
+          <rect x="4" y="12" width="40" height="28"/>
+          <line x1="4" y1="20" x2="44" y2="20"/>
+          <line x1="4" y1="28" x2="44" y2="28"/>
+          <circle cx="16" cy="24" r="3" opacity="0.4"/>
+          <line x1="24" y1="32" x2="38" y2="32" opacity="0.5"/>
+          <line x1="24" y1="36" x2="34" y2="36" opacity="0.3"/>
+        </svg>
+      </div>
+      <h3>Fixed Income</h3>
+      <p>Navigate bond markets with precision, aligned with your risk appetite and return targets.</p>
+      <span class="card-arrow">&rarr;</span>
+    </div>
+    <div class="card">
+      <div class="card-number">03</div>
+      <div class="card-icon">
+        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2">
+          <polygon points="24,4 44,16 44,36 24,44 4,36 4,16" opacity="0.6"/>
+          <polygon points="24,10 38,18 38,34 24,40 10,34 10,18" opacity="0.3"/>
+          <line x1="24" y1="4" x2="24" y2="44" opacity="0.15"/>
+          <circle cx="24" cy="24" r="3" fill="currentColor" stroke="none" opacity="0.4"/>
+        </svg>
+      </div>
+      <h3>Commodity Trading</h3>
+      <p>Strategic positioning in precious metals, energy, and agricultural products.</p>
+      <span class="card-arrow">&rarr;</span>
+    </div>
+    <div class="card">
+      <div class="card-number">04</div>
+      <div class="card-icon">
+        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2">
+          <circle cx="24" cy="18" r="8"/>
+          <path d="M12,42 C12,34 18,30 24,30 C30,30 36,34 36,42" opacity="0.6"/>
+          <circle cx="40" cy="6" r="6" opacity="0.2"/>
+          <path d="M24,10 L24,14 M20,12 L28,12" stroke-width="1" opacity="0.5"/>
+        </svg>
+      </div>
+      <h3>Advisory Services</h3>
+      <p>Independent, conflict-free advisory backed by deep market expertise.</p>
+      <span class="card-arrow">&rarr;</span>
+    </div>
+  </div>
+</section>
+
+<!-- HORIZONTAL SHOWCASE -->
+<div class="showcase-wrap">
+  <section class="showcase" id="showcase">
+    <p class="showcase-label">The Elizabeth Experience</p>
+    <div class="showcase-track" id="showcaseTrack">
+      <div class="showcase-stat-panel">
+        <p class="showcase-quote">Where heritage meets modern finance.</p>
+        <div class="showcase-stats">
+          <div class="showcase-stat">
+            <div class="stat-number" data-target="4">0</div>
+            <div class="stat-label">Asset Classes</div>
+          </div>
+          <div class="showcase-stat">
+            <div class="stat-number" data-target="30" data-suffix="+">0</div>
+            <div class="stat-label">Global Markets</div>
+          </div>
+          <div class="showcase-stat">
+            <div class="stat-number" data-target="24" data-suffix="/7">0</div>
+            <div class="stat-label">Market Coverage</div>
+          </div>
+        </div>
+      </div>
+      <!-- Panel 1: Globe -->
+      <div class="showcase-panel">
+        <div class="panel-visual">
+          <span class="panel-number">I &mdash; Global Reach</span>
+          <svg class="globe-svg" viewBox="0 0 200 200">
+            <circle cx="100" cy="100" r="80" class="ring"/>
+            <circle cx="100" cy="100" r="60" class="ring"/>
+            <ellipse cx="100" cy="100" rx="80" ry="35" class="ring" id="gOrbit1"/>
+            <ellipse cx="100" cy="100" rx="35" ry="80" class="ring" id="gOrbit2"/>
+            <ellipse cx="100" cy="100" rx="80" ry="50" class="ring" transform="rotate(30,100,100)" id="gOrbit3"/>
+            <circle cx="100" cy="100" r="30" class="ring-b"/>
+            <circle cx="100" cy="20" r="3" class="dot"/>
+            <circle cx="180" cy="100" r="3" class="dot"/>
+            <circle cx="100" cy="180" r="3" class="dot"/>
+            <circle cx="20" cy="100" r="3" class="dot"/>
+            <circle cx="100" cy="100" r="4" fill="#FFFFFF" opacity="0.6"/>
+          </svg>
+        </div>
+        <h3>Worldwide Market Access</h3>
+        <p>Execute across 30+ markets spanning equities, bonds, and commodities from a single platform.</p>
+      </div>
+      <!-- Panel 2: Shield -->
+      <div class="showcase-panel">
+        <div class="panel-visual">
+          <span class="panel-number">II &mdash; Regulated</span>
+          <svg viewBox="0 0 200 200" fill="none" stroke="#FFFFFF" stroke-width="0.8" opacity="0.7">
+            <path d="M100,20 L170,55 L170,110 C170,145 140,170 100,185 C60,170 30,145 30,110 L30,55 Z"/>
+            <path d="M100,40 L155,67 L155,108 C155,137 132,157 100,170 C68,157 45,137 45,108 L45,67 Z" opacity="0.3"/>
+            <polyline points="80,105 95,120 125,85" stroke-width="2" opacity="0.8"/>
+            <circle cx="100" cy="105" r="35" stroke-dasharray="4,4" opacity="0.2"/>
+          </svg>
+        </div>
+        <h3>DMCC Regulated</h3>
+        <p>Full compliance with DMCC Free Zone regulations, ensuring institutional-grade governance at every level.</p>
+      </div>
+      <!-- Panel 3: Network -->
+      <div class="showcase-panel">
+        <div class="panel-visual">
+          <span class="panel-number">III &mdash; Connected</span>
+          <svg viewBox="0 0 200 200" fill="none" stroke="#FFFFFF" stroke-width="0.6" opacity="0.7">
+            <circle cx="100" cy="100" r="8" fill="#FFFFFF" opacity="0.4" stroke="none"/>
+            <circle cx="40" cy="50" r="5" fill="#FFFFFF" opacity="0.3" stroke="none"/>
+            <circle cx="160" cy="50" r="5" fill="#FFFFFF" opacity="0.3" stroke="none"/>
+            <circle cx="40" cy="150" r="5" fill="#FFFFFF" opacity="0.3" stroke="none"/>
+            <circle cx="160" cy="150" r="5" fill="#FFFFFF" opacity="0.3" stroke="none"/>
+            <circle cx="100" cy="30" r="4" fill="#FFFFFF" opacity="0.25" stroke="none"/>
+            <circle cx="100" cy="170" r="4" fill="#FFFFFF" opacity="0.25" stroke="none"/>
+            <line x1="100" y1="100" x2="40" y2="50" opacity="0.3"/>
+            <line x1="100" y1="100" x2="160" y2="50" opacity="0.3"/>
+            <line x1="100" y1="100" x2="40" y2="150" opacity="0.3"/>
+            <line x1="100" y1="100" x2="160" y2="150" opacity="0.3"/>
+            <line x1="100" y1="100" x2="100" y2="30" opacity="0.3"/>
+            <line x1="100" y1="100" x2="100" y2="170" opacity="0.3"/>
+            <line x1="40" y1="50" x2="160" y2="50" opacity="0.15"/>
+            <line x1="40" y1="150" x2="160" y2="150" opacity="0.15"/>
+            <line x1="40" y1="50" x2="40" y2="150" opacity="0.15"/>
+            <line x1="160" y1="50" x2="160" y2="150" opacity="0.15"/>
+            <circle cx="100" cy="100" r="50" stroke-dasharray="3,5" opacity="0.15"/>
+            <circle cx="100" cy="100" r="80" stroke-dasharray="3,5" opacity="0.1"/>
+          </svg>
+        </div>
+        <h3>Deep Network</h3>
+        <p>Relationships with leading global counterparties, exchanges, and liquidity providers across every major market.</p>
+      </div>
+      <!-- Panel 4: Chart -->
+      <div class="showcase-panel">
+        <div class="panel-visual">
+          <span class="panel-number">IV &mdash; Performance</span>
+          <svg viewBox="0 0 200 200" fill="none" stroke="#FFFFFF" stroke-width="0.6" opacity="0.7">
+            <line x1="30" y1="170" x2="170" y2="170" opacity="0.3"/>
+            <line x1="30" y1="30" x2="30" y2="170" opacity="0.3"/>
+            <polyline points="30,140 55,125 80,130 105,90 130,70 155,45 170,50" stroke-width="1.5" opacity="0.7"/>
+            <polyline points="30,150 55,140 80,145 105,120 130,110 155,95 170,100" stroke-width="0.8" opacity="0.3" stroke-dasharray="3,3"/>
+            <circle cx="105" cy="90" r="4" fill="#FFFFFF" opacity="0.5" stroke="none"/>
+            <circle cx="155" cy="45" r="4" fill="#FFFFFF" opacity="0.5" stroke="none"/>
+            <line x1="30" y1="130" x2="170" y2="130" stroke-dasharray="2,4" opacity="0.1"/>
+            <line x1="30" y1="90" x2="170" y2="90" stroke-dasharray="2,4" opacity="0.1"/>
+          </svg>
+        </div>
+        <h3>Research-Driven</h3>
+        <p>Proprietary analysis and market intelligence to inform every trade and advisory decision.</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- WHY US -->
+<section class="why-us" id="why-us">
+  <div class="why-us-header">
+    <p class="section-label">Why Elizabeth</p>
+    <h2>Principled Brokerage for Serious Investors</h2>
+  </div>
+  <div class="trust-pillars">
+    <div class="pillar">
+      <div class="pillar-icon">
+        <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1">
+          <path d="M20,2 L36,10 L36,22 C36,30 28,36 20,38 C12,36 4,30 4,22 L4,10 Z"/>
+          <polyline points="14,20 18,24 26,16" stroke-width="1.5"/>
+        </svg>
+      </div>
+      <div class="pillar-number" data-target="01">00</div>
+      <h3>DMCC Licensed</h3>
+      <p>Fully regulated under the DMCC Free Zone authority, ensuring the highest standards of compliance and operational integrity in every transaction.</p>
+    </div>
+    <div class="pillar">
+      <div class="pillar-icon">
+        <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1">
+          <circle cx="20" cy="14" r="7"/>
+          <path d="M8,36 C8,28 13,24 20,24 C27,24 32,28 32,36"/>
+          <circle cx="20" cy="14" r="11" stroke-dasharray="2,3" opacity="0.3"/>
+        </svg>
+      </div>
+      <div class="pillar-number" data-target="02">00</div>
+      <h3>Client-First</h3>
+      <p>Every decision we make is guided by our clients' best interests. Our advisory model eliminates conflicts of interest and aligns our success with yours.</p>
+    </div>
+    <div class="pillar">
+      <div class="pillar-icon">
+        <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1">
+          <rect x="6" y="4" width="28" height="32"/>
+          <line x1="12" y1="12" x2="28" y2="12"/>
+          <line x1="12" y1="18" x2="28" y2="18"/>
+          <line x1="12" y1="24" x2="22" y2="24"/>
+          <circle cx="26" cy="30" r="6"/>
+          <polyline points="24,30 26,32 28,28"/>
+        </svg>
+      </div>
+      <div class="pillar-number" data-target="03">00</div>
+      <h3>Full Transparency</h3>
+      <p>Clear fee structures, open communication, and detailed reporting. You always know exactly where you stand and how your assets are performing.</p>
+    </div>
+  </div>
+</section>
+
+<!-- STATEMENT -->
+<section class="statement">
+  <span class="statement-bracket left" aria-hidden="true">\</span>
+  <span class="statement-bracket right" aria-hidden="true">/</span>
+  <div class="statement-line-h left" aria-hidden="true"></div>
+  <div class="statement-line-h right" aria-hidden="true"></div>
+  <div class="gold-line-v" aria-hidden="true"></div>
+  <h2>Your Interests. Our Expertise. No Conflicts.</h2>
+  <p>Elizabeth Commercial Brokers partners with those who value transparency, governance, and long-term thinking.</p>
+  <div class="gold-line-bottom"></div>
+</section>
+
+<!-- CLIENTS -->
+<section class="clients">
+  <div class="clients-mesh" aria-hidden="true">
+    <svg viewBox="0 0 1400 600" preserveAspectRatio="none">
+      <defs>
+        <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+          <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#EDECE9" stroke-width="0.5"/>
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#grid)"/>
+      <circle cx="400" cy="300" r="200" fill="none" stroke="#FFFFFF" stroke-width="0.5" stroke-dasharray="4,6" opacity="0.3"/>
+      <circle cx="900" cy="200" r="150" fill="none" stroke="#FFFFFF" stroke-width="0.5" stroke-dasharray="4,6" opacity="0.2"/>
+    </svg>
+  </div>
+  <span class="clients-watermark" aria-hidden="true">DMCC</span>
+  <div class="clients-content">
+    <p class="section-label">Clients</p>
+    <h2>Who We Work With</h2>
+    <div class="clients-grid">
+      <div class="client-card">
+        <div class="client-icon">
+          <svg viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1">
+            <circle cx="18" cy="12" r="6"/>
+            <path d="M8,32 C8,25 12,22 18,22 C24,22 28,25 28,32"/>
+            <circle cx="28" cy="4" r="2.5" fill="currentColor" opacity="0.3"/>
+          </svg>
+        </div>
+        <h3>High-Net-Worth Individuals</h3>
+        <p>Tailored brokerage solutions for sophisticated investors seeking personalized execution and advisory.</p>
+      </div>
+      <div class="client-card">
+        <div class="client-icon">
+          <svg viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1">
+            <rect x="4" y="12" width="28" height="20"/>
+            <path d="M4,18 L18,10 L32,18"/>
+            <line x1="14" y1="22" x2="14" y2="32"/>
+            <line x1="22" y1="22" x2="22" y2="32"/>
+            <line x1="14" y1="22" x2="22" y2="22"/>
+          </svg>
+        </div>
+        <h3>Corporate Treasuries</h3>
+        <p>Helping organizations optimize cash management, hedging strategies, and investment portfolios.</p>
+      </div>
+      <div class="client-card">
+        <div class="client-icon">
+          <svg viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1">
+            <rect x="2" y="6" width="32" height="24"/>
+            <polyline points="8,24 14,16 20,20 28,12"/>
+            <circle cx="28" cy="12" r="2" fill="currentColor" opacity="0.4"/>
+          </svg>
+        </div>
+        <h3>Institutional Investors</h3>
+        <p>Providing institutional-grade execution, research, and market access across asset classes.</p>
+      </div>
+      <div class="client-card">
+        <div class="client-icon">
+          <svg viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1">
+            <circle cx="18" cy="18" r="14"/>
+            <ellipse cx="18" cy="18" rx="14" ry="6"/>
+            <ellipse cx="18" cy="18" rx="6" ry="14"/>
+            <circle cx="18" cy="18" r="2" fill="currentColor" opacity="0.4"/>
+          </svg>
+        </div>
+        <h3>International Investors</h3>
+        <p>Facilitating cross-border investment into UAE and regional markets with local expertise.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="contact-inner">
+    <div class="contact-left">
+      <p class="section-label">Contact</p>
+      <h2>Start a Conversation</h2>
+      <form onsubmit="event.preventDefault();">
+        <div class="form-row">
+          <div class="form-group"><input type="text" placeholder="Full Name" required></div>
+          <div class="form-group"><input type="email" placeholder="Email Address" required></div>
+        </div>
+        <div class="form-group"><input type="text" placeholder="Subject"></div>
+        <div class="form-group"><textarea placeholder="Your Message" rows="5"></textarea></div>
+        <button type="submit" class="btn-gold" data-magnetic>Send Message</button>
+      </form>
+      <div class="contact-map-abstract">
+        <svg viewBox="0 0 800 200" preserveAspectRatio="none">
+          <defs>
+            <pattern id="mapGrid" width="40" height="40" patternUnits="userSpaceOnUse">
+              <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#2A2A2A" stroke-width="0.5"/>
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#mapGrid)"/>
+          <circle cx="400" cy="100" r="60" fill="none" stroke="#FFFFFF" stroke-width="0.3" stroke-dasharray="3,4" opacity="0.25"/>
+          <circle cx="400" cy="100" r="30" fill="none" stroke="#FFFFFF" stroke-width="0.3" stroke-dasharray="3,4" opacity="0.35"/>
+        </svg>
+        <div class="map-pin-abstract">
+          <div class="pin-dot"></div>
+          <div class="pin-ring ring1"></div>
+          <div class="pin-ring ring2"></div>
+          <div class="pin-ring ring3"></div>
+        </div>
+      </div>
+    </div>
+    <div class="contact-right">
+      <div class="contact-block">
+        <p class="contact-block-label">Location</p>
+        <p>Unit 4561, DMCC Business Centre<br>Level 1, Jewellery &amp; Gemplex 3<br>Dubai, UAE</p>
+      </div>
+      <div class="contact-block">
+        <p class="contact-block-label">Email</p>
+        <p>info@elizabethbrokers.com</p>
+      </div>
+      <div class="contact-block">
+        <p class="contact-block-label">Phone</p>
+        <p>+971 4 XXX XXXX</p>
+      </div>
+      <div class="contact-block">
+        <p class="contact-block-label">Hours</p>
+        <p>Sunday &ndash; Thursday<br>9:00 AM &ndash; 6:00 PM GST</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="footer-logo">Elizabeth</div>
+      <div class="footer-sub">Commercial Brokers FZCO</div>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#why-us">Why Us</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="#services">Equity Brokerage</a></li>
+        <li><a href="#services">Fixed Income</a></li>
+        <li><a href="#services">Commodity Trading</a></li>
+        <li><a href="#services">Advisory</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Legal</h4>
+      <ul>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Terms of Service</a></li>
+        <li><a href="#">Regulatory</a></li>
+        <li><a href="#">Disclosures</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-divider"></div>
+  <div class="footer-bottom">
+    <span>&copy; 2024 Elizabeth Commercial Brokers FZCO. All rights reserved.</span>
+    <span>DMCC Licensed &middot; Dubai, UAE</span>
+  </div>
+</footer>
+
+<!-- LIBS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+<script>
+(function() {
+  'use strict';
+
+  // ── LENIS SMOOTH SCROLL ──
+  const lenis = new Lenis({ duration: 1.2, easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
+  function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+  requestAnimationFrame(raf);
+  // Sync Lenis with GSAP ScrollTrigger
+  lenis.on('scroll', ScrollTrigger.update);
+  gsap.ticker.add(time => lenis.raf(time * 1000));
+  gsap.ticker.lagSmoothing(0);
+
+  // ── CUSTOM CURSOR ──
+  const cursor = document.getElementById('cursor');
+  const cursorDot = document.getElementById('cursorDot');
+  let cx = 0, cy = 0, dx = 0, dy = 0;
+
+  if (window.matchMedia('(pointer: fine)').matches) {
+    document.addEventListener('mousemove', e => { cx = e.clientX; cy = e.clientY; });
+    const interactives = 'a, button, .card, .client-card, input, textarea, [data-magnetic]';
+    document.addEventListener('mouseover', e => {
+      if (e.target.closest(interactives)) cursor.classList.add('hovering');
+    });
+    document.addEventListener('mouseout', e => {
+      if (e.target.closest(interactives)) cursor.classList.remove('hovering');
+    });
+    gsap.ticker.add(() => {
+      dx += (cx - dx) * 0.15;
+      dy += (cy - dy) * 0.15;
+      cursor.style.left = dx + 'px';
+      cursor.style.top = dy + 'px';
+      cursorDot.style.left = cx + 'px';
+      cursorDot.style.top = cy + 'px';
+    });
+  } else {
+    cursor.style.display = 'none';
+    cursorDot.style.display = 'none';
+  }
+
+  // ── MAGNETIC BUTTONS ──
+  document.querySelectorAll('[data-magnetic]').forEach(btn => {
+    btn.addEventListener('mousemove', e => {
+      const r = btn.getBoundingClientRect();
+      const x = e.clientX - r.left - r.width / 2;
+      const y = e.clientY - r.top - r.height / 2;
+      gsap.to(btn, { x: x * 0.25, y: y * 0.25, duration: 0.4, ease: 'power2.out' });
+    });
+    btn.addEventListener('mouseleave', () => {
+      gsap.to(btn, { x: 0, y: 0, duration: 0.4, ease: 'power2.out' });
+    });
+  });
+
+  // ── SCROLL PROGRESS BAR ──
+  const scrollProgress = document.getElementById('scrollProgress');
+  gsap.to(scrollProgress, {
+    scaleX: 1,
+    ease: 'none',
+    scrollTrigger: { trigger: 'body', start: 'top top', end: 'bottom bottom', scrub: 0.3 }
+  });
+  scrollProgress.style.transform = 'scaleX(0)';
+
+  // ── PARTICLES ──
+  const canvas = document.getElementById('particles');
+  const ctx = canvas.getContext('2d');
+  let particles = [];
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas);
+
+  for (let i = 0; i < 40; i++) {
+    particles.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      r: Math.random() * 1.5 + 0.5,
+      vx: (Math.random() - 0.5) * 0.3,
+      vy: (Math.random() - 0.5) * 0.3,
+      o: Math.random() * 0.3 + 0.05
+    });
+  }
+  function drawParticles() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach(p => {
+      p.x += p.vx;
+      p.y += p.vy;
+      if (p.x < 0) p.x = canvas.width;
+      if (p.x > canvas.width) p.x = 0;
+      if (p.y < 0) p.y = canvas.height;
+      if (p.y > canvas.height) p.y = 0;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(255,255,255,${p.o})`;
+      ctx.fill();
+    });
+    requestAnimationFrame(drawParticles);
+  }
+  drawParticles();
+
+  // ── MOBILE NAV ──
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+  navToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+  navLinks.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => navLinks.classList.remove('open'));
+  });
+
+  // ── NAV SCROLL + ACTIVE ──
+  const nav = document.getElementById('nav');
+  const sections = document.querySelectorAll('section[id]');
+  const navAnchors = navLinks.querySelectorAll('a');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 20);
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 200) current = s.id;
+    });
+    navAnchors.forEach(a => {
+      a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+    });
+  });
+
+  // ── GSAP ──
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Hero line reveal
+  gsap.to('.hero-headline .line-inner', {
+    y: '0%', duration: 0.9, ease: 'power3.out', stagger: 0.1, delay: 0.4
+  });
+  gsap.from('.hero-label', { y: 20, opacity: 0, duration: 0.6, ease: 'power2.out', delay: 0.2 });
+  gsap.from('.hero-sub', { y: 30, opacity: 0, duration: 0.7, ease: 'power2.out', delay: 1.0 });
+  gsap.from('.hero-actions', { y: 20, opacity: 0, duration: 0.6, ease: 'power2.out', delay: 1.2 });
+  gsap.from('.hero-gold-line', { scaleX: 0, duration: 0.8, ease: 'power2.out', delay: 1.4 });
+
+  // Hero parallax
+  gsap.to('#heroBg', {
+    yPercent: -15,
+    ease: 'none',
+    scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true }
+  });
+
+  // Hero geometry
+  gsap.to('.hero-geo .o1', { rotation: 360, duration: 60, repeat: -1, ease: 'none', transformOrigin: 'center center' });
+  gsap.to('.hero-geo .o2', { rotation: -360, duration: 80, repeat: -1, ease: 'none', transformOrigin: 'center center' });
+  gsap.to('.hero-geo .o3', { rotation: 360, duration: 45, repeat: -1, ease: 'none', transformOrigin: 'center center' });
+  gsap.to('#heroCube', { rotateX: 360, rotateY: 360, duration: 30, repeat: -1, ease: 'none' });
+  gsap.to('.hero-geo .dot-float', { scale: 1.6, opacity: 0.15, duration: 2.5, repeat: -1, yoyo: true, ease: 'sine.inOut', stagger: 0.5 });
+
+  // About
+  gsap.to('#aboutPrism .r1', { rotation: 360, duration: 40, repeat: -1, ease: 'none', transformOrigin: 'center center' });
+  gsap.to('#aboutPrism .r2', { rotation: -360, duration: 30, repeat: -1, ease: 'none', transformOrigin: 'center center' });
+  gsap.to('#aboutPrism .r3', { rotation: 360, duration: 35, repeat: -1, ease: 'none', transformOrigin: 'center center' });
+  gsap.to('#aboutPrism .center-diamond', { rotation: 360, scale: 0.7, duration: 8, repeat: -1, yoyo: true, ease: 'sine.inOut' });
+  gsap.to('#aboutPrism .node', { scale: 1.6, opacity: 0.15, duration: 2, repeat: -1, yoyo: true, ease: 'sine.inOut', stagger: 0.4 });
+
+  gsap.from('.about-visual', {
+    scrollTrigger: { trigger: '.about', start: 'top 80%' },
+    x: -60, opacity: 0, duration: 0.8, ease: 'power2.out'
+  });
+  gsap.from('.about-text > *', {
+    scrollTrigger: { trigger: '.about-text', start: 'top 80%' },
+    y: 30, opacity: 0, duration: 0.6, ease: 'power2.out', stagger: 0.12
+  });
+  gsap.from('.about-text .gold-line', {
+    scrollTrigger: { trigger: '.about-text .gold-line', start: 'top 85%' },
+    scaleX: 0, duration: 0.7, ease: 'power2.out'
+  });
+
+  // Services
+  gsap.from('.services-header > *', {
+    scrollTrigger: { trigger: '.services-header', start: 'top 80%' },
+    y: 30, opacity: 0, duration: 0.6, ease: 'power2.out', stagger: 0.1
+  });
+  gsap.from('.services-grid .card', {
+    scrollTrigger: { trigger: '.services-grid', start: 'top 85%' },
+    y: 60, opacity: 0, duration: 0.8, ease: 'power3.out', stagger: 0.15
+  });
+
+  // ── HORIZONTAL SCROLL ──
+  const showcaseTrack = document.getElementById('showcaseTrack');
+  const showcaseWrap = document.querySelector('.showcase-wrap');
+  gsap.to(showcaseTrack, {
+    x: () => -(showcaseTrack.scrollWidth - window.innerWidth + 80),
+    ease: 'none',
+    scrollTrigger: {
+      trigger: showcaseWrap,
+      start: 'top top',
+      end: () => '+=' + (showcaseTrack.scrollWidth - window.innerWidth + 80),
+      scrub: 1,
+      pin: true,
+      anticipatePin: 1,
+      invalidateOnRefresh: true
+    }
+  });
+
+  // Globe rotation
+  gsap.to('#gOrbit1', { attr: { transform: 'rotate(360,100,100)' }, duration: 20, repeat: -1, ease: 'none' });
+  gsap.to('#gOrbit2', { attr: { transform: 'rotate(-360,100,100)' }, duration: 25, repeat: -1, ease: 'none' });
+  gsap.to('#gOrbit3', { attr: { transform: 'rotate(390,100,100)' }, duration: 30, repeat: -1, ease: 'none' });
+  gsap.to('.globe-svg .dot', { scale: 1.3, opacity: 0.3, duration: 2, repeat: -1, yoyo: true, ease: 'sine.inOut', stagger: 0.3 });
+
+  // Stat counting
+  document.querySelectorAll('.stat-number').forEach(el => {
+    const target = parseInt(el.getAttribute('data-target'));
+    const suffix = el.getAttribute('data-suffix') || '';
+    ScrollTrigger.create({
+      trigger: el,
+      start: 'top 85%',
+      onEnter: () => {
+        gsap.to(el, {
+          duration: 1.2,
+          ease: 'power2.out',
+          onUpdate: function() { el.textContent = Math.round(this.progress() * target) + suffix; }
+        });
+      },
+      once: true
+    });
+  });
+
+  // Why Us
+  document.querySelectorAll('.pillar-number').forEach(el => {
+    const target = el.getAttribute('data-target');
+    ScrollTrigger.create({
+      trigger: el,
+      start: 'top 85%',
+      onEnter: () => {
+        gsap.to(el, {
+          duration: 0.8,
+          ease: 'power2.out',
+          onUpdate: function() { el.textContent = String(Math.round(this.progress() * parseInt(target))).padStart(2, '0'); }
+        });
+      },
+      once: true
+    });
+  });
+  gsap.from('.pillar', {
+    scrollTrigger: { trigger: '.trust-pillars', start: 'top 80%' },
+    y: 40, opacity: 0, duration: 0.7, ease: 'power2.out', stagger: 0.15
+  });
+
+  // Statement
+  gsap.from('.statement .gold-line-v', {
+    scrollTrigger: { trigger: '.statement', start: 'top 75%' },
+    scaleY: 0, transformOrigin: 'top', duration: 0.6, ease: 'power2.out'
+  });
+  gsap.from('.statement h2', {
+    scrollTrigger: { trigger: '.statement h2', start: 'top 80%' },
+    y: 40, opacity: 0, duration: 0.8, ease: 'power3.out'
+  });
+  gsap.from('.statement p', {
+    scrollTrigger: { trigger: '.statement p', start: 'top 85%' },
+    y: 20, opacity: 0, duration: 0.6, ease: 'power2.out', delay: 0.2
+  });
+  gsap.from('.statement-bracket', {
+    scrollTrigger: { trigger: '.statement', start: 'top 80%' },
+    opacity: 0, duration: 1.2, ease: 'power2.out'
+  });
+
+  // Clients
+  gsap.from('.clients-content .section-label, .clients-content > h2', {
+    scrollTrigger: { trigger: '.clients-content', start: 'top 80%' },
+    y: 30, opacity: 0, duration: 0.6, ease: 'power2.out', stagger: 0.1
+  });
+  gsap.from('.client-card', {
+    scrollTrigger: { trigger: '.clients-grid', start: 'top 80%' },
+    y: 50, opacity: 0, duration: 0.7, ease: 'power3.out', stagger: 0.12
+  });
+
+  // Contact
+  gsap.from('.contact-left > *', {
+    scrollTrigger: { trigger: '.contact-left', start: 'top 80%' },
+    y: 30, opacity: 0, duration: 0.6, ease: 'power2.out', stagger: 0.1
+  });
+  gsap.from('.contact-right .contact-block', {
+    scrollTrigger: { trigger: '.contact-right', start: 'top 80%' },
+    y: 20, opacity: 0, duration: 0.5, ease: 'power2.out', stagger: 0.1
+  });
+  gsap.to('.map-pin-abstract .pin-ring', {
+    scale: 1.3, opacity: 0, duration: 1.5, ease: 'power2.out', stagger: 0.2, repeat: -1,
+    scrollTrigger: { trigger: '.contact-map-abstract', start: 'top 90%' }
+  });
+
+  // Footer
+  gsap.from('.footer-top > *', {
+    scrollTrigger: { trigger: '.footer', start: 'top 85%' },
+    y: 20, opacity: 0, duration: 0.5, ease: 'power2.out', stagger: 0.1
+  });
+
+})();
+</script>
+</body>
+</html>
