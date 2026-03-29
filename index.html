@@ -575,10 +575,13 @@ footer {
 @media(max-width:768px){
   .nav-r{display:none}.nav-r.open{
     display:flex;flex-direction:column;position:absolute;top:68px;left:0;right:0;
-    background:rgba(13,13,13,.97);backdrop-filter:blur(20px);padding:24px;gap:20px;
+    background:rgba(13,13,13,.97);backdrop-filter:blur(20px);padding:32px 24px;gap:24px;
     border-top:1px solid var(--gray-800);
   }
+  .nav-r.open a { font-size:14px;letter-spacing:.15em; }
   .mob-btn{display:flex}
+  .hero-vlines{display:none}
+  .hero-meta{display:none}
   .about-l{min-height:280px;padding:48px 24px}.about-geo{width:180px;height:180px}
   .srv-grid{grid-template-columns:1fr}.srv-grid .srv:nth-child(even){margin-top:0}
   .sc-panel{width:300px}.sc-panel .vis{height:260px}.sc-stat{width:260px}
@@ -589,6 +592,9 @@ footer {
   .form-row{grid-template-columns:1fr}
   .ft-top{grid-template-columns:1fr;gap:28px}
   .ft-bot{flex-direction:column;gap:8px;text-align:center}
+  .about-fig{display:none}
+  .sec-rule{display:none}
+  .stmt .br-l,.stmt .br-r{display:none}
 }
 </style>
 </head>
