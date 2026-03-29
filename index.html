@@ -390,6 +390,20 @@ nav {
 .sc-wrap { overflow:hidden;background:var(--black);border-top:1px solid var(--gray-800); }
 .sc { padding:72px 0 72px clamp(24px,6vw,100px); }
 .sc .t-label { color:var(--gray-400);margin-bottom:44px; }
+.sc-prog {
+  display:flex;align-items:center;gap:16px;margin-bottom:32px;
+}
+.sc-prog-bar {
+  width:120px;height:1px;background:var(--gray-800);position:relative;overflow:hidden;
+}
+.sc-prog-fill {
+  position:absolute;top:0;left:0;height:100%;width:100%;background:var(--white);
+  transform-origin:left;transform:scaleX(0);
+}
+.sc-prog-text {
+  font-size:10px;letter-spacing:.15em;color:var(--gray-600);text-transform:uppercase;
+  font-variant-numeric:tabular-nums;
+}
 .sc-track { display:flex;gap:36px;will-change:transform; }
 .sc-stat {
   flex-shrink:0;width:340px;display:flex;flex-direction:column;justify-content:center;padding-right:24px;
@@ -826,6 +840,7 @@ footer {
 <div class="sc-wrap">
   <section class="sc" id="sc">
     <p class="t-label">The Elizabeth Experience</p>
+    <div class="sc-prog"><div class="sc-prog-bar"><div class="sc-prog-fill" id="scFill"></div></div><span class="sc-prog-text" id="scProg">01 / 03</span></div>
     <div class="sc-track" id="scTrack">
       <div class="sc-stat">
         <blockquote>Where heritage meets modern finance.</blockquote>
@@ -1097,7 +1112,15 @@ gsap.from('.srv-row',{scrollTrigger:{trigger:'.srv-list',start:'top 85%'},y:48,o
 
 // Horizontal scroll
 const scTrack=document.getElementById('scTrack'),scWrap=document.querySelector('.sc-wrap');
-gsap.to(scTrack,{x:()=>-(scTrack.scrollWidth-window.innerWidth+80),ease:'none',scrollTrigger:{trigger:scWrap,start:'top top',end:()=>'+='+(scTrack.scrollWidth-window.innerWidth+80),scrub:1,pin:true,anticipatePin:1,invalidateOnRefresh:true}});
+const scFill=document.getElementById('scFill'),scProgText=document.getElementById('scProg');
+gsap.to(scTrack,{x:()=>-(scTrack.scrollWidth-window.innerWidth+80),ease:'none',scrollTrigger:{trigger:scWrap,start:'top top',end:()=>'+='+(scTrack.scrollWidth-window.innerWidth+80),scrub:1,pin:true,anticipatePin:1,invalidateOnRefresh:true,
+  onUpdate:self=>{
+    const p=self.progress;
+    gsap.set(scFill,{scaleX:p});
+    const panel=Math.min(3,Math.floor(p*3)+1);
+    scProgText.textContent=String(panel).padStart(2,'0')+' / 03';
+  }
+}});
 
 // Globe
 gsap.to('#gO1',{attr:{transform:'rotate(360,90,90)'},duration:22,repeat:-1,ease:'none'});
