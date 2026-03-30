@@ -1009,7 +1009,7 @@ const cur=document.getElementById('cur'),curd=document.getElementById('curd');
 let cx=0,cy=0,dx=0,dy=0;
 if(window.matchMedia('(pointer:fine)').matches){
   document.addEventListener('mousemove',e=>{cx=e.clientX;cy=e.clientY});
-  const INT='a,button,.srv,.cl,input,textarea,[data-mag]';
+  const INT='a,button,.srv-row,.cl-row,.pil,input,textarea,[data-mag]';
   document.addEventListener('mouseover',e=>{if(e.target.closest(INT))cur.classList.add('h')});
   document.addEventListener('mouseout',e=>{if(e.target.closest(INT))cur.classList.remove('h')});
   gsap.ticker.add(()=>{
