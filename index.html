@@ -569,6 +569,12 @@ nav {
   transition:color .4s;
 }
 .cl-row:hover h3 { color:var(--white); }
+.cl-row .cl-arr {
+  font-size:16px;color:var(--gray-600);display:inline-block;margin-left:12px;
+  opacity:0;transform:translateX(-8px);
+  transition:opacity .3s,transform .3s cubic-bezier(.23,1,.32,1),color .3s;
+}
+.cl-row:hover .cl-arr { opacity:1;transform:translateX(0);color:var(--white); }
 .cl-row p {
   font-size:15px;line-height:1.7;color:var(--gray-600);font-weight:300;
   max-width:440px;transition:color .4s;
@@ -946,19 +952,19 @@ footer {
     <p style="font-size:15px;line-height:1.7;color:var(--gray-400);font-weight:300;max-width:520px;margin-bottom:56px;">We serve a discerning clientele that values transparency, governance, and long-term alignment of interests.</p>
     <div class="cl-list">
       <div class="cl-row">
-        <h3>High-Net-Worth Individuals</h3>
+        <h3>High-Net-Worth Individuals<span class="cl-arr">&rarr;</span></h3>
         <p>Tailored brokerage solutions for sophisticated investors seeking personalized execution and advisory across global markets.</p>
       </div>
       <div class="cl-row">
-        <h3>Corporate Treasuries</h3>
+        <h3>Corporate Treasuries<span class="cl-arr">&rarr;</span></h3>
         <p>Helping organizations optimize cash management, hedging strategies, and investment portfolios with institutional precision.</p>
       </div>
       <div class="cl-row">
-        <h3>Institutional Investors</h3>
+        <h3>Institutional Investors<span class="cl-arr">&rarr;</span></h3>
         <p>Providing institutional-grade execution, research, and direct market access across every major asset class.</p>
       </div>
       <div class="cl-row">
-        <h3>International Investors</h3>
+        <h3>International Investors<span class="cl-arr">&rarr;</span></h3>
         <p>Facilitating cross-border investment into UAE and regional markets with deep local expertise and regulatory knowledge.</p>
       </div>
     </div>
