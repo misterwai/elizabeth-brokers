@@ -995,13 +995,16 @@ footer {
     <div class="contact-l">
       <p class="t-label">Contact</p>
       <h2>Start a <em>Conversation</em></h2>
-      <form id="contactForm">
+      <form id="contactForm" action="https://api.web3forms.com/submit" method="POST">
+        <input type="hidden" name="access_key" value="130b19ff-24b0-4b01-b7bc-782b15df899d">
+        <input type="hidden" name="subject" value="New inquiry from elizabethbrokers.org">
+        <input type="hidden" name="from_name" value="Elizabeth Brokers Website">
         <div class="form-row">
-          <div class="field"><input type="text" placeholder=" " required><label>Full Name</label></div>
-          <div class="field"><input type="email" placeholder=" " required><label>Email</label></div>
+          <div class="field"><input type="text" name="name" placeholder=" " required><label>Full Name</label></div>
+          <div class="field"><input type="email" name="email" placeholder=" " required><label>Email</label></div>
         </div>
-        <div class="field"><input type="text" placeholder=" "><label>Subject</label></div>
-        <div class="field"><textarea placeholder=" "></textarea><label>Message</label></div>
+        <div class="field"><input type="text" name="subject" placeholder=" "><label>Subject</label></div>
+        <div class="field"><textarea name="message" placeholder=" "></textarea><label>Message</label></div>
         <button type="submit" class="btn btn-dark" data-mag><span>Send Message</span><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></button>
       </form>
       <div class="c-map">
@@ -1012,7 +1015,6 @@ footer {
     <div class="contact-r">
       <div class="c-block"><p class="c-block-l">Location</p><p>Unit 4561, DMCC Business Centre<br>Level 1, Jewellery &amp; Gemplex 3<br>Dubai, UAE</p></div>
       <div class="c-block"><p class="c-block-l">Email</p><p>info@elizabethbrokers.com</p></div>
-      <div class="c-block"><p class="c-block-l">Phone</p><p>+971 4 XXX XXXX</p></div>
       <div class="c-block"><p class="c-block-l">Hours</p><p>Sunday &ndash; Thursday<br>9:00 AM &ndash; 6:00 PM GST</p></div>
     </div>
   </div>
@@ -1275,14 +1277,27 @@ document.querySelectorAll('[data-rule]').forEach(r=>{
 // Footer
 gsap.from('.ft-top > *',{scrollTrigger:{trigger:'footer',start:'top 88%'},y:16,autoAlpha:0,duration:.45,ease:'power2.out',stagger:.08,immediateRender:false});
 
-// Form submit
+// Form submit via Web3Forms AJAX
 document.getElementById('contactForm').addEventListener('submit',function(e){
   e.preventDefault();
-  const btn=this.querySelector('.btn');
-  const origHTML=btn.innerHTML;
-  btn.innerHTML='<span>Sent</span>';
-  btn.style.pointerEvents='none';btn.style.opacity='.6';
-  setTimeout(()=>{btn.innerHTML=origHTML;btn.style.pointerEvents='';btn.style.opacity='';this.reset();},2000);
+  const form=this,btn=form.querySelector('.btn'),origHTML=btn.innerHTML;
+  btn.innerHTML='<span>Sending...</span>';btn.style.pointerEvents='none';btn.style.opacity='.6';
+  fetch('https://api.web3forms.com/submit',{
+    method:'POST',
+    body:new FormData(form)
+  }).then(r=>r.json()).then(data=>{
+    if(data.success){
+      btn.innerHTML='<span>Sent successfully</span>';
+      form.reset();
+      setTimeout(()=>{btn.innerHTML=origHTML;btn.style.pointerEvents='';btn.style.opacity='';},3000);
+    } else {
+      btn.innerHTML='<span>Error — try again</span>';
+      setTimeout(()=>{btn.innerHTML=origHTML;btn.style.pointerEvents='';btn.style.opacity='';},2000);
+    }
+  }).catch(()=>{
+    btn.innerHTML='<span>Error — try again</span>';
+    setTimeout(()=>{btn.innerHTML=origHTML;btn.style.pointerEvents='';btn.style.opacity='';},2000);
+  });
 });
 
 })();
