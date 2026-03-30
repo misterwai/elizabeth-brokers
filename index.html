@@ -171,6 +171,10 @@ nav {
 .hero-over {
   font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--gray-400);
   margin-bottom:28px;font-weight:400;
+  display:flex;align-items:center;gap:16px;
+}
+.hero-over::before {
+  content:'';width:32px;height:1px;background:var(--gray-600);flex-shrink:0;
 }
 .hero h1 {
   font-family:var(--serif);font-weight:200;
