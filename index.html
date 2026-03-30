@@ -297,7 +297,9 @@ nav {
 .about-geo {
   width:240px;height:240px;position:relative;
   transform-style:preserve-3d;
+  transition:transform .8s cubic-bezier(.23,1,.32,1);
 }
+.about-l:hover .about-geo { transform:scale(1.06); }
 .about-geo .ring {
   position:absolute;top:50%;left:50%;border-radius:50%;
   border:1px solid rgba(255,255,255,.08);
@@ -651,7 +653,8 @@ nav {
 }
 .c-map svg { position:absolute;inset:0;width:100%;height:100%; }
 .c-pin { position:relative;z-index:2; }
-.c-pin-d { width:10px;height:10px;background:var(--white);border-radius:50%; }
+.c-pin-d { width:10px;height:10px;background:var(--white);border-radius:50%;transition:transform .4s; }
+.c-map:hover .c-pin-d { transform:scale(1.3); }
 .c-pin-r { position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);border:1px dashed rgba(255,255,255,.2);border-radius:50%; }
 .c-pin .r1 { width:36px;height:36px; }
 .c-pin .r2 { width:64px;height:64px;opacity:.5; }
