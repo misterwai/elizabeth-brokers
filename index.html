@@ -1164,8 +1164,24 @@ gsap.from('.pil',{scrollTrigger:{trigger:'.pillars',start:'top 80%'},y:48,opacit
 
 // Statement
 gsap.from('.stmt-rule',{scrollTrigger:{trigger:'.stmt',start:'top 75%'},scaleY:0,transformOrigin:'top',duration:.5,ease:'power2.out'});
-gsap.from('.stmt h2',{scrollTrigger:{trigger:'.stmt h2',start:'top 80%'},y:48,opacity:0,duration:.9,ease:'power3.out'});
-gsap.from('.stmt p',{scrollTrigger:{trigger:'.stmt p',start:'top 85%'},y:24,opacity:0,duration:.7,ease:'power2.out',delay:.15});
+// Statement word-by-word opacity scrub
+const stmtH=document.querySelector('.stmt h2');
+if(stmtH){
+  const words=stmtH.textContent.trim().split(/\s+/);
+  stmtH.innerHTML=words.map(w=>`<span style="opacity:.15;display:inline-block;transition:opacity .1s">${w}</span>`).join(' ');
+  const stmtWords=stmtH.querySelectorAll('span');
+  ScrollTrigger.create({
+    trigger:'.stmt',start:'top 60%',end:'top 20%',scrub:2,
+    onUpdate:self=>{
+      const p=self.progress;
+      stmtWords.forEach((w,i)=>{
+        const wp=(i+1)/stmtWords.length;
+        w.style.opacity=p>=wp?'1':p>=(wp-.15)?String(.15+(p-(wp-.15))/.15*.85):'.15';
+      });
+    }
+  });
+}
+gsap.from('.stmt p',{scrollTrigger:{trigger:'.stmt p',start:'top 75%'},y:24,opacity:0,duration:.7,ease:'power2.out'});
 
 // Clients
 gsap.from('.clients-c .t-label, .clients-c > h2',{scrollTrigger:{trigger:'.clients-c',start:'top 80%'},y:48,opacity:0,duration:.6,ease:'power2.out',stagger:.1});
