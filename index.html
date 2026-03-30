@@ -51,7 +51,13 @@ a { color: inherit; text-decoration: none; cursor: none; }
 button, input, textarea { cursor: none; }
 
 /* ── Page overlay ── */
-.overlay{position:fixed;inset:0;background:var(--black);z-index:10002;pointer-events:none;}
+.overlay{position:fixed;inset:0;background:var(--black);z-index:10002;pointer-events:none;
+  display:flex;align-items:center;justify-content:center;
+}
+.overlay-logo {
+  font-family:var(--sans);font-size:14px;font-weight:700;letter-spacing:.4em;
+  color:var(--white);text-transform:uppercase;opacity:0;
+}
 
 /* ── Cursor ── */
 .cur { position:fixed;top:0;left:0;width:10px;height:10px;background:#fff;border-radius:50%;pointer-events:none;z-index:9999;mix-blend-mode:difference;transform:translate(-50%,-50%);transition:width .25s,height .25s; }
@@ -722,7 +728,7 @@ footer {
 </head>
 <body>
 
-<div class="overlay" id="ov"></div>
+<div class="overlay" id="ov"><span class="overlay-logo" id="ovLogo">Elizabeth</span></div>
 <div class="cur" id="cur"></div>
 <div class="cur-d" id="curd"></div>
 <div class="prog" id="prog"></div>
@@ -1101,16 +1107,20 @@ gsap.registerPlugin(ScrollTrigger);
 // Custom ease (from OTC)
 const EASE='cubic-bezier(0,0.5,0.25,1)';
 
-// Page overlay
-gsap.to('#ov',{opacity:0,duration:.55,ease:'power2.inOut',delay:.15,onComplete(){document.getElementById('ov').style.display='none'}});
+// Page overlay with logo splash
+const ovTL=gsap.timeline();
+ovTL.to('#ovLogo',{opacity:1,duration:.3,ease:'power2.out',delay:.1})
+  .to('#ovLogo',{opacity:0,duration:.3,ease:'power2.in',delay:.25})
+  .to('#ov',{opacity:0,duration:.5,ease:'power2.inOut',onComplete(){document.getElementById('ov').style.display='none'}});
 
 // Hero — staggered entrance after overlay
-gsap.from('#hH',{y:50,opacity:0,duration:1,ease:'power3.out',delay:.5});
-gsap.from('.hero-over',{y:16,opacity:0,duration:.6,ease:'power2.out',delay:.35});
-gsap.from('.hero-sub',{y:24,opacity:0,duration:.7,ease:'power2.out',delay:1});
-gsap.from('.hero-cta',{y:16,opacity:0,duration:.6,ease:'power2.out',delay:1.2});
-gsap.from('.hero-line',{scaleX:0,duration:.8,ease:'power2.out',delay:1.4});
-gsap.from('.hero-meta',{opacity:0,duration:.8,ease:'power2.out',delay:1.5});
+const hDelay=1.1; // after overlay completes
+gsap.from('#hH',{y:50,opacity:0,duration:1,ease:'power3.out',delay:hDelay});
+gsap.from('.hero-over',{y:16,opacity:0,duration:.6,ease:'power2.out',delay:hDelay-.15});
+gsap.from('.hero-sub',{y:24,opacity:0,duration:.7,ease:'power2.out',delay:hDelay+.5});
+gsap.from('.hero-cta',{y:16,opacity:0,duration:.6,ease:'power2.out',delay:hDelay+.7});
+gsap.from('.hero-line',{scaleX:0,duration:.8,ease:'power2.out',delay:hDelay+.9});
+gsap.from('.hero-meta',{opacity:0,duration:.8,ease:'power2.out',delay:hDelay+1});
 
 // Hero parallax
 gsap.to('#heroImg',{yPercent:-12,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});
