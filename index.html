@@ -13,6 +13,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://api.fontshare.com/v2/css?f[]=zodiak@1,2&f[]=satoshi@300,400,500,700&display=swap" rel="stylesheet">
+<style>body{opacity:0;transition:opacity .3s}.fonts-loaded body{opacity:1}</style>
+<script>document.fonts.ready.then(()=>document.documentElement.classList.add('fonts-loaded'));setTimeout(()=>document.documentElement.classList.add('fonts-loaded'),2000);</script>
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 
@@ -65,7 +67,7 @@ button, input, textarea { cursor: none; }
 .cur-d { position:fixed;top:0;left:0;width:3px;height:3px;background:#fff;border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%); }
 
 /* ── Progress ── */
-.prog { position:fixed;top:0;left:0;height:1px;background:var(--black);z-index:10001;transform-origin:left;will-change:transform; }
+.prog { position:fixed;top:0;left:0;height:1px;background:var(--white);z-index:10001;transform-origin:left;will-change:transform;mix-blend-mode:difference; }
 
 /* ── Grain ── */
 .grain{position:fixed;inset:0;pointer-events:none;z-index:9998;opacity:.028;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:200px;}
@@ -200,8 +202,8 @@ nav {
 }
 .hero-cta { display:flex;align-items:center;gap:32px; }
 .hero-line {
-  position:absolute;bottom:48px;left:clamp(24px,6vw,100px);
-  width:100px;height:1px;background:rgba(255,255,255,.15);z-index:2;
+  position:absolute;bottom:100px;left:clamp(24px,6vw,100px);
+  width:80px;height:1px;background:rgba(255,255,255,.12);z-index:2;
   transform-origin:left;
 }
 /* Scroll indicator */
@@ -341,6 +343,9 @@ nav {
   font-size:15px;line-height:1.8;color:var(--gray-600);font-weight:300;
   margin-bottom:18px;max-width:520px;
 }
+.about-stats { display:flex;gap:48px;margin-top:32px;padding-top:24px;border-top:1px solid var(--gray-100); }
+.about-stat-n { font-family:var(--serif);font-size:32px;font-weight:200;color:var(--black);line-height:1;margin-bottom:4px; }
+.about-stat-l { font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--gray-400); }
 
 /* ═══════════════════════════════════════
    SERVICES — editorial stacked rows
@@ -518,7 +523,7 @@ nav {
   font-size:16px;line-height:1.75;color:var(--gray-600);font-weight:300;
   max-width:540px;margin:0 auto 32px;
 }
-.stmt-rule-b { width:48px;height:1px;background:var(--black);margin:0 auto;opacity:.1; }
+.stmt-rule-b { width:48px;height:1px;background:var(--black);margin:0 auto;opacity:.15;transform-origin:center; }
 /* Corner marks (OTC-style) */
 .stmt .cr {
   position:absolute;width:32px;height:32px;opacity:.08;pointer-events:none;
@@ -837,9 +842,9 @@ footer {
     <p>Elizabeth Commercial Brokers FZCO is a DMCC-licensed financial brokerage operating from Dubai. Decades of collective experience across global equity, fixed income, commodity, and advisory markets.</p>
     <p>Our philosophy is rooted in transparency, rigorous governance, and a genuine commitment to aligning our interests with yours. No conflicts — only lasting partnerships built on trust.</p>
     <a href="#services" class="tlink" style="margin-top:12px;display:inline-block">Explore our services</a>
-    <div style="display:flex;gap:48px;margin-top:32px;padding-top:24px;border-top:1px solid var(--gray-100);">
-      <div><div class="t-mono" style="font-family:var(--serif);font-size:32px;font-weight:200;color:var(--black);line-height:1;margin-bottom:4px;" data-to="4">0</div><div style="font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--gray-400);">Asset Classes</div></div>
-      <div><div class="t-mono" style="font-family:var(--serif);font-size:32px;font-weight:200;color:var(--black);line-height:1;margin-bottom:4px;">DMCC</div><div style="font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--gray-400);">Licensed</div></div>
+    <div class="about-stats">
+      <div><div class="about-stat-n t-mono" data-to="4">0</div><div class="about-stat-l">Asset Classes</div></div>
+      <div><div class="about-stat-n t-mono">DMCC</div><div class="about-stat-l">Licensed</div></div>
     </div>
   </div>
 </section>
@@ -1219,7 +1224,7 @@ document.querySelectorAll('.stat-n').forEach(el=>{
 });
 
 // About stat counter
-document.querySelectorAll('.about-r [data-to]').forEach(el=>{
+document.querySelectorAll('.about-stat-n[data-to]').forEach(el=>{
   const t=parseInt(el.dataset.to);
   ScrollTrigger.create({trigger:el,start:'top 85%',onEnter:()=>{gsap.to(el,{duration:.8,ease:'power2.out',onUpdate(){el.textContent=Math.round(this.progress()*t)}})},once:true});
 });
@@ -1251,6 +1256,7 @@ if(stmtH){
   });
 }
 gsap.from('.stmt p',{scrollTrigger:{trigger:'.stmt p',start:'top 75%'},y:24,opacity:0,duration:.7,ease:'power2.out'});
+gsap.from('.stmt-rule-b',{scrollTrigger:{trigger:'.stmt-rule-b',start:'top 85%'},scaleX:0,duration:.6,ease:'power2.out'});
 
 // Clients
 gsap.from('.clients-c .t-label, .clients-c > h2',{scrollTrigger:{trigger:'.clients-c',start:'top 80%'},y:48,opacity:0,duration:.6,ease:'power2.out',stagger:.1});
