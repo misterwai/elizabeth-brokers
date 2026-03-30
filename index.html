@@ -216,7 +216,10 @@ nav {
 .hero-scroll .scroll-line {
   width:1px;height:28px;background:linear-gradient(to bottom,var(--gray-600),transparent);
   animation:scroll-pulse 2s ease-in-out infinite;
+  will-change:transform,opacity;
 }
+/* Animation paused via JS when hero leaves viewport */
+.hero-scroll.paused .scroll-line { animation-play-state:paused; }
 @keyframes scroll-pulse {
   0%,100%{opacity:.4;transform:scaleY(1)}
   50%{opacity:1;transform:scaleY(1.3)}
@@ -715,6 +718,8 @@ footer {
   .srv-list::before{display:none}
   .sc-panel{width:380px}.sc-stat{width:280px}
   .cl-row{grid-template-columns:1fr}
+  .cl-row p{color:var(--gray-400);transform:none}
+  .srv-body p{max-height:none;opacity:1}
   .contact-grid{grid-template-columns:1fr}
   .ft-top{grid-template-columns:1fr 1fr}
 }
@@ -734,6 +739,7 @@ footer {
   .services-head{flex-direction:column;align-items:flex-start}
   .srv-body p{max-height:none;opacity:1}
   .sc-panel{width:300px}.sc-panel .vis{height:260px}.sc-stat{width:260px}
+  .sc-prog{display:none}
   .pillars{grid-template-columns:1fr;gap:32px}
   .pil{padding:0;border-left:none;border-top:1px solid var(--gray-200);padding-top:28px}
   .pil:first-child{border-top:none;padding-top:0}
@@ -1139,8 +1145,8 @@ document.fonts.ready.then(()=>{ ScrollTrigger.refresh(); });
 /* ── GSAP ── */
 gsap.registerPlugin(ScrollTrigger);
 
-// Custom ease (from OTC)
-const EASE='cubic-bezier(0,0.5,0.25,1)';
+// Custom ease (from OTC) — used in CSS transitions via var
+// cubic-bezier(0,0.5,0.25,1)
 
 // Page overlay with logo splash
 const ovTL=gsap.timeline();
@@ -1150,12 +1156,12 @@ ovTL.to('#ovLogo',{opacity:1,duration:.3,ease:'power2.out',delay:.1})
 
 // Hero — staggered entrance after overlay
 const hDelay=1.1; // after overlay completes
-gsap.from('#hH',{y:50,opacity:0,duration:1,ease:'power3.out',delay:hDelay});
-gsap.from('.hero-over',{y:16,opacity:0,duration:.6,ease:'power2.out',delay:hDelay-.15});
-gsap.from('.hero-sub',{y:24,opacity:0,duration:.7,ease:'power2.out',delay:hDelay+.5});
-gsap.from('.hero-cta',{y:16,opacity:0,duration:.6,ease:'power2.out',delay:hDelay+.7});
+gsap.from('#hH',{y:50,autoAlpha:0,duration:1,ease:'power3.out',delay:hDelay});
+gsap.from('.hero-over',{y:16,autoAlpha:0,duration:.6,ease:'power2.out',delay:hDelay-.15});
+gsap.from('.hero-sub',{y:24,autoAlpha:0,duration:.7,ease:'power2.out',delay:hDelay+.5});
+gsap.from('.hero-cta',{y:16,autoAlpha:0,duration:.6,ease:'power2.out',delay:hDelay+.7});
 gsap.from('.hero-line',{scaleX:0,duration:.8,ease:'power2.out',delay:hDelay+.9});
-gsap.from('.hero-meta',{opacity:0,duration:.8,ease:'power2.out',delay:hDelay+1});
+gsap.from('.hero-meta',{autoAlpha:0,duration:.8,ease:'power2.out',delay:hDelay+1});
 
 // Hero parallax
 gsap.to('#heroImg',{yPercent:-12,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});
@@ -1169,9 +1175,10 @@ const heroGeo=[
   gsap.to('.hero-geo .o2',{rotation:-360,duration:70,repeat:-1,ease:'none',transformOrigin:'center'}),
   gsap.to('#hCube',{rotateX:360,rotateY:360,duration:28,repeat:-1,ease:'none'})
 ];
+const heroScrollEl=document.querySelector('.hero-scroll');
 ScrollTrigger.create({trigger:'.hero',start:'top top',end:'bottom top',
-  onLeave:()=>heroGeo.forEach(t=>t.pause()),
-  onEnterBack:()=>heroGeo.forEach(t=>t.play())
+  onLeave:()=>{heroGeo.forEach(t=>t.pause());if(heroScrollEl)heroScrollEl.classList.add('paused')},
+  onEnterBack:()=>{heroGeo.forEach(t=>t.play());if(heroScrollEl)heroScrollEl.classList.remove('paused')}
 });
 
 // About — animate only when visible (Stripe pattern: no autoplay loops off-screen)
