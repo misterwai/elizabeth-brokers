@@ -8,7 +8,7 @@
 <meta name="theme-color" content="#0D0D0D">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://api.fontshare.com/v2/css?f[]=zodiak@200,300,400,200i,300i&f[]=satoshi@300,400,500,700&display=swap" rel="stylesheet">
+<link href="https://api.fontshare.com/v2/css?f[]=zodiak@1,2&f[]=satoshi@300,400,500,700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 
@@ -634,7 +634,12 @@ footer {
   font-style:italic;
 }
 .ft-top { display:grid;grid-template-columns:1.8fr 1fr 1fr 1fr;gap:36px;margin-bottom:40px; }
-.ft-logo { font-family:var(--sans);font-size:13px;font-weight:700;letter-spacing:.35em;color:var(--white);text-transform:uppercase;margin-bottom:6px; }
+.ft-logo {
+  font-family:var(--sans);font-size:13px;font-weight:700;letter-spacing:.35em;
+  color:var(--white);text-transform:uppercase;margin-bottom:6px;
+  display:inline-block;transition:letter-spacing .6s cubic-bezier(.23,1,.32,1);
+}
+.ft-logo:hover { letter-spacing:.5em; }
 .ft-sub { font-size:12px;color:var(--gray-600); }
 .ft-col h4 { font-size:10px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--gray-300);margin-bottom:16px; }
 .ft-col ul { list-style:none; }
