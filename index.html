@@ -119,6 +119,7 @@ h1,h2,h3,h4,h5,h6 { text-wrap:balance; }
   transition:transform .4s cubic-bezier(.25,.46,.45,.94);
 }
 .tlink:hover::after { transform:scaleX(1);transform-origin:left; }
+.tlink-block { display:inline-block;margin-top:12px; }
 
 /* ═══════════════════════════════════════
    NAV
@@ -175,10 +176,6 @@ nav {
 .hero-over {
   font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--gray-400);
   margin-bottom:28px;font-weight:400;
-  display:flex;align-items:center;gap:16px;
-}
-.hero-over::before {
-  content:'';width:32px;height:1px;background:var(--gray-600);flex-shrink:0;
 }
 .hero h1 {
   font-family:var(--serif);font-weight:200;
@@ -372,6 +369,7 @@ nav {
   font-size:12px;letter-spacing:.15em;text-transform:uppercase;color:var(--gray-600);
   white-space:nowrap;
 }
+.srv-count-desc { font-size:14px;line-height:1.7;color:var(--gray-400);font-weight:300;max-width:320px;margin-top:8px; }
 /* Stacked row list */
 .srv-list { max-width:1200px;position:relative; }
 /* Vertical connecting line on left */
@@ -788,8 +786,8 @@ footer {
     <div class="hero-cube" id="hCube"><i class="f"></i><i class="b"></i><i class="l"></i><i class="r"></i><i class="t"></i><i class="bo"></i></div>
   </div>
   <div class="hero-content">
-    <p class="hero-over">DMCC Licensed Brokerage &middot; Dubai</p>
-    <h1 id="hH">Your Financial Future,<br><em>Expertly</em> Managed</h1>
+    <p class="hero-over t-label">DMCC Licensed Brokerage &middot; Dubai</p>
+    <h1 id="hH">Your Financial Future, <em>Expertly</em> Managed</h1>
     <p class="hero-sub">Expert financial brokerage services from the heart of Dubai's DMCC Free Zone.</p>
     <div class="hero-cta">
       <a href="#contact" class="btn" data-mag><span>Get Started</span><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
@@ -840,15 +838,13 @@ footer {
     <div class="rule"></div>
     <p>Elizabeth Commercial Brokers FZCO is a DMCC-licensed financial brokerage operating from Dubai. Decades of collective experience across global equity, fixed income, commodity, and advisory markets.</p>
     <p>Our philosophy is rooted in transparency, rigorous governance, and a genuine commitment to aligning our interests with yours. No conflicts — only lasting partnerships built on trust.</p>
-    <a href="#services" class="tlink" style="margin-top:12px;display:inline-block">Explore our services</a>
+    <a href="#services" class="tlink tlink-block">Explore our services</a>
     <div class="about-stats">
       <div><div class="about-stat-n t-mono" data-to="4">0</div><div class="about-stat-l">Asset Classes</div></div>
       <div><div class="about-stat-n t-mono">DMCC</div><div class="about-stat-l">Licensed</div></div>
     </div>
   </div>
 </section>
-
-<div class="sec-rule" data-rule></div>
 
 <!-- SERVICES -->
 <section class="services" id="services">
@@ -859,7 +855,7 @@ footer {
     </div>
     <div class="srv-count-wrap">
       <span class="srv-count">04 Capabilities</span>
-      <p style="font-size:14px;line-height:1.7;color:var(--gray-400);font-weight:300;max-width:320px;margin-top:8px;">Institutional-grade execution across global markets, tailored to your objectives.</p>
+      <p class="srv-count-desc">Institutional-grade execution across global markets, tailored to your objectives.</p>
     </div>
   </div>
   <svg class="srv-bg" viewBox="0 0 1400 800" preserveAspectRatio="none" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;opacity:.02;pointer-events:none"><defs><pattern id="sd" width="40" height="40" patternUnits="userSpaceOnUse"><circle cx="20" cy="20" r="1" fill="#fff"/></pattern></defs><rect width="100%" height="100%" fill="url(#sd)"/></svg>
