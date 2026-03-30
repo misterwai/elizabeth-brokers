@@ -1155,10 +1155,16 @@ gsap.to('#heroImg',{yPercent:-12,ease:'none',scrollTrigger:{trigger:'.hero',star
 // Fade scroll indicator on scroll
 gsap.to('.hero-scroll',{opacity:0,y:-10,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'15% top',scrub:true}});
 
-// Hero geo
-gsap.to('.hero-geo .o1',{rotation:360,duration:55,repeat:-1,ease:'none',transformOrigin:'center'});
-gsap.to('.hero-geo .o2',{rotation:-360,duration:70,repeat:-1,ease:'none',transformOrigin:'center'});
-gsap.to('#hCube',{rotateX:360,rotateY:360,duration:28,repeat:-1,ease:'none'});
+// Hero geo — pause when scrolled past
+const heroGeo=[
+  gsap.to('.hero-geo .o1',{rotation:360,duration:55,repeat:-1,ease:'none',transformOrigin:'center'}),
+  gsap.to('.hero-geo .o2',{rotation:-360,duration:70,repeat:-1,ease:'none',transformOrigin:'center'}),
+  gsap.to('#hCube',{rotateX:360,rotateY:360,duration:28,repeat:-1,ease:'none'})
+];
+ScrollTrigger.create({trigger:'.hero',start:'top top',end:'bottom top',
+  onLeave:()=>heroGeo.forEach(t=>t.pause()),
+  onEnterBack:()=>heroGeo.forEach(t=>t.play())
+});
 
 // About — animate only when visible (Stripe pattern: no autoplay loops off-screen)
 const aboutGeoTweens=[
