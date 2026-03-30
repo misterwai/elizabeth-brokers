@@ -1200,9 +1200,15 @@ gsap.to(scTrack,{x:()=>-(scTrack.scrollWidth-window.innerWidth+80),ease:'none',s
   }
 }});
 
-// Globe
-gsap.to('#gO1',{attr:{transform:'rotate(360,90,90)'},duration:22,repeat:-1,ease:'none'});
-gsap.to('#gO2',{attr:{transform:'rotate(-360,90,90)'},duration:28,repeat:-1,ease:'none'});
+// Globe — viewport gated
+const globeTweens=[
+  gsap.to('#gO1',{attr:{transform:'rotate(360,90,90)'},duration:22,repeat:-1,ease:'none',paused:true}),
+  gsap.to('#gO2',{attr:{transform:'rotate(-360,90,90)'},duration:28,repeat:-1,ease:'none',paused:true})
+];
+ScrollTrigger.create({trigger:'.sc-wrap',start:'top bottom',end:'bottom top',
+  onEnter:()=>globeTweens.forEach(t=>t.play()),onLeave:()=>globeTweens.forEach(t=>t.pause()),
+  onEnterBack:()=>globeTweens.forEach(t=>t.play()),onLeaveBack:()=>globeTweens.forEach(t=>t.pause())
+});
 
 // Stat counters
 document.querySelectorAll('.stat-n').forEach(el=>{
