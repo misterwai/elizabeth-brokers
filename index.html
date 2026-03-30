@@ -590,10 +590,11 @@ nav {
 }
 .cl-row:hover .cl-arr { opacity:1;transform:translateX(0);color:var(--white); }
 .cl-row p {
-  font-size:15px;line-height:1.7;color:var(--gray-600);font-weight:300;
-  max-width:440px;transition:color .4s;
+  font-size:15px;line-height:1.7;color:rgba(255,255,255,0);font-weight:300;
+  max-width:440px;transform:translateX(16px);
+  transition:color .4s cubic-bezier(.23,1,.32,1),transform .4s cubic-bezier(.23,1,.32,1);
 }
-.cl-row:hover p { color:var(--gray-400); }
+.cl-row:hover p { color:var(--gray-400);transform:translateX(0); }
 /* Sibling dimming */
 .cl-list:hover .cl-row { opacity:.4; }
 .cl-list:hover .cl-row:hover { opacity:1; }
@@ -734,6 +735,7 @@ footer {
   .pil{padding:0;border-left:none;border-top:1px solid var(--gray-200);padding-top:28px}
   .pil:first-child{border-top:none;padding-top:0}
   .cl-row{grid-template-columns:1fr;gap:12px}
+  .cl-row p{color:var(--gray-400);transform:none}
   .form-row{grid-template-columns:1fr}
   .ft-top{grid-template-columns:1fr;gap:28px}
   .ft-bot{flex-direction:column;gap:8px;text-align:center}
