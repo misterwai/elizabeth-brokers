@@ -178,6 +178,8 @@ nav {
   background:linear-gradient(175deg,rgba(13,13,13,.15) 0%,rgba(13,13,13,.55) 40%,rgba(13,13,13,.93) 85%);
 }
 .hero-content { position:relative;z-index:2;padding:0 clamp(24px,6vw,100px); }
+/* Fallback: if GSAP doesn't load, hero content stays visible */
+.no-js .hero-content > * { opacity:1!important;visibility:visible!important;transform:none!important; }
 .hero-over {
   font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--gray-400);
   margin-bottom:28px;font-weight:400;
@@ -1144,20 +1146,25 @@ gsap.registerPlugin(ScrollTrigger);
 // Custom ease (from OTC) — used in CSS transitions via var
 // cubic-bezier(0,0.5,0.25,1)
 
-// Page overlay with logo splash
-const ovTL=gsap.timeline();
-ovTL.to('#ovLogo',{opacity:1,duration:.3,ease:'power2.out',delay:.1})
-  .to('#ovLogo',{opacity:0,duration:.3,ease:'power2.in',delay:.25})
-  .to('#ov',{opacity:0,duration:.5,ease:'power2.inOut',onComplete(){document.getElementById('ov').style.display='none'}});
+// Page overlay with logo splash → hero entrance (chained timeline)
+const masterTL=gsap.timeline();
+// Phase 1: overlay
+masterTL.to('#ovLogo',{opacity:1,duration:.3,ease:'power2.out',delay:.1})
+  .to('#ovLogo',{opacity:0,duration:.3,ease:'power2.in'},'>+0.25')
+  .to('#ov',{opacity:0,duration:.5,ease:'power2.inOut',onComplete(){document.getElementById('ov').style.display='none'}})
+// Phase 2: hero entrance (starts automatically after overlay)
+  .from('.hero-over',{y:16,autoAlpha:0,duration:.6,ease:'power2.out'},'>-0.1')
+  .from('#hH',{y:50,autoAlpha:0,duration:1,ease:'power3.out'},'>-0.4')
+  .from('.hero-sub',{y:24,autoAlpha:0,duration:.7,ease:'power2.out'},'>-0.3')
+  .from('.hero-cta',{y:16,autoAlpha:0,duration:.6,ease:'power2.out'},'>-0.3')
+  .from('.hero-line',{scaleX:0,duration:.8,ease:'power2.out'},'>-0.2')
+  .from('.hero-meta',{autoAlpha:0,duration:.8,ease:'power2.out'},'>-0.4');
 
-// Hero — staggered entrance after overlay
-const hDelay=1.1; // after overlay completes
-gsap.from('#hH',{y:50,autoAlpha:0,duration:1,ease:'power3.out',delay:hDelay});
-gsap.from('.hero-over',{y:16,autoAlpha:0,duration:.6,ease:'power2.out',delay:hDelay-.15});
-gsap.from('.hero-sub',{y:24,autoAlpha:0,duration:.7,ease:'power2.out',delay:hDelay+.5});
-gsap.from('.hero-cta',{y:16,autoAlpha:0,duration:.6,ease:'power2.out',delay:hDelay+.7});
-gsap.from('.hero-line',{scaleX:0,duration:.8,ease:'power2.out',delay:hDelay+.9});
-gsap.from('.hero-meta',{autoAlpha:0,duration:.8,ease:'power2.out',delay:hDelay+1});
+// Safety: if hero content still hidden after 4s, force show everything
+setTimeout(()=>{
+  gsap.set('.hero-content > *, .hero-line, .hero-meta',{autoAlpha:1,y:0,clearProps:'all'});
+  const ov=document.getElementById('ov');if(ov)ov.style.display='none';
+},4000);
 
 // Hero parallax
 gsap.to('#heroImg',{yPercent:-12,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});
