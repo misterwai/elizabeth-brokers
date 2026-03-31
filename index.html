@@ -1146,25 +1146,34 @@ gsap.registerPlugin(ScrollTrigger);
 // Custom ease (from OTC) — used in CSS transitions via var
 // cubic-bezier(0,0.5,0.25,1)
 
-// Page overlay with logo splash → hero entrance (chained timeline)
-const masterTL=gsap.timeline();
-// Phase 1: overlay
-masterTL.to('#ovLogo',{opacity:1,duration:.3,ease:'power2.out',delay:.1})
-  .to('#ovLogo',{opacity:0,duration:.3,ease:'power2.in'},'>+0.25')
-  .to('#ov',{opacity:0,duration:.5,ease:'power2.inOut',onComplete(){document.getElementById('ov').style.display='none'}})
-// Phase 2: hero entrance (starts automatically after overlay)
-  .from('.hero-over',{y:16,autoAlpha:0,duration:.6,ease:'power2.out'},'>-0.1')
-  .from('#hH',{y:50,autoAlpha:0,duration:1,ease:'power3.out'},'>-0.4')
-  .from('.hero-sub',{y:24,autoAlpha:0,duration:.7,ease:'power2.out'},'>-0.3')
-  .from('.hero-cta',{y:16,autoAlpha:0,duration:.6,ease:'power2.out'},'>-0.3')
-  .from('.hero-line',{scaleX:0,duration:.8,ease:'power2.out'},'>-0.2')
-  .from('.hero-meta',{autoAlpha:0,duration:.8,ease:'power2.out'},'>-0.4');
-
-// Safety: if hero content still hidden after 4s, force show everything
+// Page overlay → hero entrance (fast, chained)
+const isMobile=window.innerWidth<768;
+const ov=document.getElementById('ov');
+if(isMobile){
+  // Mobile: skip logo splash, just fade overlay fast
+  gsap.to(ov,{opacity:0,duration:.3,ease:'power2.out',delay:.1,onComplete(){ov.style.display='none'}});
+  gsap.from('.hero-over',{y:12,autoAlpha:0,duration:.5,ease:'power2.out',delay:.35});
+  gsap.from('#hH',{y:30,autoAlpha:0,duration:.7,ease:'power3.out',delay:.4});
+  gsap.from('.hero-sub',{y:16,autoAlpha:0,duration:.5,ease:'power2.out',delay:.7});
+  gsap.from('.hero-cta',{y:12,autoAlpha:0,duration:.4,ease:'power2.out',delay:.85});
+} else {
+  // Desktop: logo splash + staggered hero
+  const masterTL=gsap.timeline();
+  masterTL.to('#ovLogo',{opacity:1,duration:.25,ease:'power2.out',delay:.05})
+    .to('#ovLogo',{opacity:0,duration:.2,ease:'power2.in'},'>+0.15')
+    .to(ov,{opacity:0,duration:.4,ease:'power2.inOut',onComplete(){ov.style.display='none'}})
+    .from('.hero-over',{y:16,autoAlpha:0,duration:.5,ease:'power2.out'},'>-0.1')
+    .from('#hH',{y:40,autoAlpha:0,duration:.8,ease:'power3.out'},'>-0.3')
+    .from('.hero-sub',{y:20,autoAlpha:0,duration:.6,ease:'power2.out'},'>-0.2')
+    .from('.hero-cta',{y:12,autoAlpha:0,duration:.5,ease:'power2.out'},'>-0.2')
+    .from('.hero-line',{scaleX:0,duration:.6,ease:'power2.out'},'>-0.1')
+    .from('.hero-meta',{autoAlpha:0,duration:.6,ease:'power2.out'},'>-0.3');
+}
+// Safety: force show after 2.5s
 setTimeout(()=>{
   gsap.set('.hero-content > *, .hero-line, .hero-meta',{autoAlpha:1,y:0,clearProps:'all'});
-  const ov=document.getElementById('ov');if(ov)ov.style.display='none';
-},4000);
+  if(ov)ov.style.display='none';
+},2500);
 
 // Hero parallax
 gsap.to('#heroImg',{yPercent:-12,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});
